@@ -11,12 +11,9 @@ namespace Projet_Stage.Models
         public string Prenom { get; set; }
         public string Poste { get; set; }
         public string Adresse { get; set; }
-
         public DateTime? DateNaissance { get; set; }
         public string LieuNaissance { get; set; }
         public string Cin { get; set; }
-
-      
         public DateTime? DateCin { get; set; }
         public string CategoriePro { get; set; }
         public decimal? Salaireb { get; set; }

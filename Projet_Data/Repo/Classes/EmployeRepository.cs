@@ -43,22 +43,45 @@ namespace Projet_Data.Repo.Classes
             }
         }
 
-        public async Task<bool> AddListEmployeesAsync(List<Employee> usersEmployee)
+        public async Task<bool> AddListEmployeesAsync(List<Employee> Employees)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.AddListEntity(Employees);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<bool> DeleteEmployeeAsync(int IdEmployee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var employee = await GetEmployeeByIdAsync(IdEmployee);
+                if (employee != null)
+                {
+                    await _repository.DeleteEntity(employee);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<ICollection<Employee>> GetAllEmployeesAsync()
         {
             try
             {
-                var ListUser = await _repository.GetAllEntity();
-                return ListUser;
+                var ListEmployee = await _repository.GetAllEntity();
+                return ListEmployee;
             }
             catch (Exception ex)
             {

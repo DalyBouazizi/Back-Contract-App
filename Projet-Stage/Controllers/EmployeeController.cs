@@ -4,6 +4,7 @@ using Projet_Data.ModelsEF;
 using Projet_Stage.Models;
 using Projet_Stage.Services.Classes;
 using Projet_Stage.Services.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Projet_Stage.Controllers
 {
@@ -32,5 +33,90 @@ namespace Projet_Stage.Controllers
                 return BadRequest("Matricule exists already");
             }
         }
+        [Route("GetAllEmployees")]
+        [HttpGet]
+        public async Task<ActionResult<List<EmployeeModel>>> GetAllEmployeesAsync()
+        {
+            List<EmployeeModel> employees = new List<EmployeeModel>();
+            try
+            {
+                employees = await _employeeService.GetAllEmployeesAsync();
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Route("GetEmpployeeById")]
+        [HttpGet]
+        public async Task<ActionResult<EmployeeModel>> GetEmployeeByIdAsync([Required] int IdEmployee)
+        {
+
+            EmployeeModel user = new EmployeeModel();
+            try
+            {
+                user = await _employeeService.GetEmployeeByIdAsync(IdEmployee);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            if (user == null)
+            {
+
+                return BadRequest("User with id " + IdEmployee + " Not found");
+            }
+            else
+            {
+                return Ok(user);
+
+            }
+        }
+        [Route("DeleteEmployee")]
+        [HttpDelete]
+        public async Task<ActionResult<String>> DeleteEmployeeAsync([Required] int IdEmployee)
+        {
+            bool res = false;
+
+            res = await _employeeService.DeleteEmployeeAsync(IdEmployee);
+            if (res)
+            {
+                return Ok("Employee deleted");
+            }
+            else
+            {
+                return BadRequest("\"User not with id "+ IdEmployee + " not found\"");
+            }
+        }
+        [Route("AddListEmployees")]
+        [HttpPost]
+        public async Task<ActionResult<string>> AddListEmployeesAsync([FromBody] List<EmployeeModel> employees)
+        {
+            if (employees == null)
+            {
+                return BadRequest("No employees were provided");
+            }
+            var (isSuccess, failedIds) = await _employeeService.AddListEmployeesAsync(employees);
+
+            if (isSuccess)
+            {
+                if (failedIds.Count > 0)
+                {
+                    return Ok($"employees added successfully, but employees with the following IDs were not added because they already exist: {string.Join(", ", failedIds)}");
+                }
+                return Ok("All employees added successfully.");
+            }
+            else
+            {
+                return BadRequest("Failed to add employees.");
+            }
+        }
+
+
+
     }
 }
+    

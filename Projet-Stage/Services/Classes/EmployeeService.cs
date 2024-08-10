@@ -56,24 +56,134 @@ namespace Projet_Stage.Services.Classes
             }
         }
 
-        public Task<(bool isSuccess, List<int> failedEmployeeIds)> AddListEmployeesAsync(List<EmployeeModel> Employees)
+        public async Task<(bool isSuccess, List<int> failedEmployeeIds)> AddListEmployeesAsync(List<EmployeeModel> Employees)
         {
-            throw new NotImplementedException();
+            var failedIds = new List<int>();
+            var employeeEntities = new List<Employee>();
+            foreach (var emp in Employees)
+            {
+                var existingemp = await _employeeRepository.GetEmployeeByIdAsync(emp.Matricule);
+                if (existingemp == null)
+                {
+                    employeeEntities.Add(new Employee
+                    {
+                        Matricule = emp.Matricule,
+                        Nom = emp.Nom,
+                        Prenom = emp.Prenom,
+                        Poste = emp.Poste,
+                        Adresse = emp.Adresse,
+                        DateNaissance = emp.DateNaissance,
+                        LieuNaissance = emp.LieuNaissance,
+                        Cin = emp.Cin,
+                        DateCin = emp.DateCin,
+                        CategoriePro = emp.CategoriePro,
+                        Salaireb = emp.Salaireb,
+                        Salairen = emp.Salairen
+
+                    });
+                }
+                else
+                {
+                    failedIds.Add(emp.Matricule);
+                }
+            }
+            if (employeeEntities.Count > 0)
+            {
+                var result = await _employeeRepository.AddListEmployeesAsync(employeeEntities);
+                return (result, failedIds);
+            }
+            return (false, failedIds);
         }
 
-        public Task<bool> DeleteEmployeeAsync(int IdEmployee)
+        public async Task<bool> DeleteEmployeeAsync(int IdEmployee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var res = await _employeeRepository.DeleteEmployeeAsync(IdEmployee);
+               return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task<List<EmployeeModel>> GetAllEmployeesAsync()
+        public async Task<List<EmployeeModel>> GetAllEmployeesAsync()
         {
-            throw new NotImplementedException();
+            List<EmployeeModel> employees = new List<EmployeeModel>();
+            try
+            {
+                var res = await _employeeRepository.GetAllEmployeesAsync();
+                if (res == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    foreach (var item in res)
+                    {
+                        EmployeeModel employee = new EmployeeModel();
+                        employee.Matricule = item.Matricule;
+                        employee.Nom = item.Nom;
+                        employee.Prenom = item.Prenom;
+                        employee.Poste = item.Poste;
+                        employee.Adresse = item.Adresse;
+                        employee.DateNaissance = item.DateNaissance;
+                        employee.Cin = item.Cin;
+                        employee.LieuNaissance = item.LieuNaissance;
+                        employee.DateCin = item.DateCin;
+                        employee.CategoriePro = item.CategoriePro;
+                        employee.Salaireb = item.Salaireb;
+                        employee.Salairen = item.Salairen;
+                        employees.Add(employee);
+                    }
+                    return await Task.FromResult(employees);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task<EmployeeModel> GetEmployeeByIdAsync(int IdEmployee)
+        public async Task<EmployeeModel> GetEmployeeByIdAsync(int IdEmployee)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+
+                var res = await _employeeRepository.GetEmployeeByIdAsync(IdEmployee);
+                if (res == null)
+                {
+
+                    return null;
+                }
+                else
+                {
+                    EmployeeModel employee = new EmployeeModel();
+                    employee.Matricule = res.Matricule;
+                    employee.Nom = res.Nom;
+                    employee.Prenom = res.Prenom;
+                    employee.Poste = res.Poste;
+                    employee.Adresse = res.Adresse;
+                    employee.DateNaissance = res.DateNaissance;
+                    employee.Cin = res.Cin;
+                    employee.LieuNaissance = res.LieuNaissance;
+                    employee.DateCin = res.DateCin;
+                    employee.CategoriePro = res.CategoriePro;
+                    employee.Salaireb = res.Salaireb;
+                    employee.Salairen = res.Salairen;
+
+                    return await Task.FromResult(employee);
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Task<bool> UpdateEmployeeAsync(EmployeeModel Employee)

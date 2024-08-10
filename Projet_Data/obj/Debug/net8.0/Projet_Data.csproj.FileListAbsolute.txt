@@ -12,3 +12,4 @@ C:\Users\21650\source\repos\Projet_Data\Projet_Data\obj\Debug\net8.0\refint\Proj
 C:\Users\21650\source\repos\Projet_Data\Projet_Data\obj\Debug\net8.0\Projet_Data.pdb
 C:\Users\21650\source\repos\Projet_Data\Projet_Data\obj\Debug\net8.0\Projet_Data.genruntimeconfig.cache
 C:\Users\21650\source\repos\Projet_Data\Projet_Data\obj\Debug\net8.0\ref\Projet_Data.dll
+C:\Users\21650\source\repos\Projet_Data\Projet_Data\obj\Debug\net8.0\Projet_Data.sourcelink.json
