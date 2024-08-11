@@ -3,6 +3,7 @@ using Projet_Data.Repo.Classes;
 using Projet_Data.Repo.Interfaces;
 using Projet_Stage.Models;
 using Projet_Stage.Services.Interfaces;
+using System.Data;
 
 namespace Projet_Stage.Services.Classes
 {
@@ -184,6 +185,26 @@ namespace Projet_Stage.Services.Classes
             {
                 throw ex;
             }
+        }
+
+        public async Task<List<Employee>> GetEmployeesByPosteAsync(string poste)
+        {
+            return await _employeeRepository.GetEmployeesByPosteAsync(poste);
+        }
+
+        public async Task<List<Employee>> SortEmployeesByIdAsync(bool ascending = true)
+        {
+            return await _employeeRepository.SortEmployeesByIdAsync(ascending);
+        }
+
+        public async Task<List<Employee>> SortEmployeesByPosteAsync(bool ascending = true)
+        {
+            return await _employeeRepository.SortEmployeesByPosteAsync(ascending);
+        }
+
+        public async Task<List<Employee>> SortEmployeesBySalaryAsync(decimal value, bool over = true)
+        {
+            return await _employeeRepository.SortEmployeesBySalaryAsync(value, over);
         }
 
         public async Task<bool> UpdateEmployeeAsync(EmployeeModel employee)

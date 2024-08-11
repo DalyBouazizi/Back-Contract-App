@@ -17,6 +17,11 @@ namespace Projet_Data.Repo.Interfaces
         Task<bool> DeleteEmployeeAsync(int IdEmployee);
         Task<bool> UpdateEmployeeAsync(Employee Employee);
         Task<bool> AddListEmployeesAsync(List<Employee> Employee);
+        Task<List<Employee>> GetEmployeesByPosteAsync(string poste);
+        
+        Task<List<Employee>> SortEmployeesByIdAsync(bool ascending);
+        Task<List<Employee>> SortEmployeesByPosteAsync(bool ascending);
+        Task<List<Employee>> SortEmployeesBySalaryAsync(decimal value, bool over);
 
 
 

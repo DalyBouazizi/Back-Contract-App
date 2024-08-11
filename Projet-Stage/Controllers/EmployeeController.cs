@@ -128,6 +128,34 @@ namespace Projet_Stage.Controllers
                 return BadRequest("Employee not found or update failed");
             }
         }
+        [HttpGet("GetEmployeesByRole")]
+        public async Task<ActionResult<IEnumerable<EmployeeModel>>> GetEmployeesByPoste(string role)
+        {
+            var employees = await _employeeService.GetEmployeesByPosteAsync(role);
+            if (employees == null || !employees.Any())
+            {
+                return NotFound("No employees found with the specified role.");
+            }
+            return Ok(employees);
+        }
+        [HttpGet("SortEmployeesById")]
+        public async Task<ActionResult<IEnumerable<EmployeeModel>>> SortEmployeesById(bool ascending)
+        {
+            var employees = await _employeeService.SortEmployeesByIdAsync(ascending);
+            return Ok(employees);
+        }
+        [HttpGet("SortEmployeesByPoste")]
+        public async Task<ActionResult<IEnumerable<EmployeeModel>>> SortEmployeesByPoste(bool ascending)
+        {
+            var employees = await _employeeService.SortEmployeesByPosteAsync(ascending);
+            return Ok(employees);
+        }
+        [HttpGet("SortEmployeesBySalary")]
+        public async Task<ActionResult<IEnumerable<EmployeeModel>>> SortEmployeesBySalary(bool over, decimal salaryValue)
+        {
+            var employees = await _employeeService.SortEmployeesBySalaryAsync(salaryValue , over);
+            return Ok(employees);
+        }
 
 
 

@@ -97,6 +97,48 @@ namespace Projet_Data.Repo.Classes
             return Employee;
         }
 
+        
+        public async Task<List<Employee>> GetEmployeesByPosteAsync(string poste)
+        {
+            return await _context.Employees.Where(e => e.Poste == poste).ToListAsync();
+        }
+
+        public async Task<List<Employee>> SortEmployeesByIdAsync(bool ascending)
+        {
+            if (ascending)
+            {
+                return await _context.Employees.OrderBy(e => e.Id).ToListAsync();
+            }
+            else
+            {
+                return await _context.Employees.OrderByDescending(e => e.Id).ToListAsync();
+            }
+        }
+
+        public async Task<List<Employee>> SortEmployeesByPosteAsync(bool ascending)
+        {
+            if (ascending)
+            {
+                return await _context.Employees.OrderBy(e => e.Poste).ToListAsync();
+            }
+            else
+            {
+                return await _context.Employees.OrderByDescending(e => e.Poste).ToListAsync();
+            }
+        }
+
+        public async Task<List<Employee>> SortEmployeesBySalaryAsync(decimal value, bool over)
+        {
+            if (over)
+            {
+                return await _context.Employees.Where(e => e.Salairen > value).ToListAsync();
+            }
+            else
+            {
+                return await _context.Employees.Where(e => e.Salairen < value).ToListAsync();
+            }
+        }
+
         public async Task<bool> UpdateEmployeeAsync(Employee Employee)
         {
             try
