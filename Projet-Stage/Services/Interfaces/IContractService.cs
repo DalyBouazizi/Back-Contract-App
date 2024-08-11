@@ -8,5 +8,9 @@ namespace Projet_Stage.Services.Interfaces
     {
         Task<bool> AddContractAsync(ContractModel Contract);
         Task<List<ContractGetModel>> GetAllContractsAsync();
+        Task<bool> DeleteContractAsync(int IdContract);
+        Task<bool> UpdateContractAsync(ContractGetModel contract);
+        Task<List<Contract>> GetContractByType(string Type);
+        Task<List<ContractGetModel>> GetContractsByDateRangeAsync(DateTime startDate, DateTime endDate);
     }
 }

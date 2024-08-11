@@ -29,7 +29,7 @@ namespace Projet_Stage.Services.Classes
             try
             {
                 Contract NewContract = new Contract();
-            
+
                 NewContract.EmployeeId = employee.Id;
                 NewContract.Datedeb = Contract.Datedeb;
                 NewContract.DateFin = Contract.DateFin;
@@ -37,11 +37,25 @@ namespace Projet_Stage.Services.Classes
 
                 var res = await _contractRepository.AddContractAsync(NewContract);
                 return res;
-                
-            }catch(Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 throw ex;
-            }  
+            }
+        }
+
+        public async Task<bool> DeleteContractAsync(int IdContract)
+        {
+            try
+            {
+                return await _contractRepository.DeleteContractAsync(IdContract);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<ContractGetModel>> GetAllContractsAsync()
@@ -59,12 +73,12 @@ namespace Projet_Stage.Services.Classes
                     foreach (var item in res)
                     {
                         ContractGetModel Contract = new ContractGetModel();
-                       Contract.id = item.Idcontrat;
+                        Contract.id = item.Idcontrat;
                         Contract.Type = item.Type;
                         Contract.DateFin = item.DateFin;
                         Contract.Datedeb = item.Datedeb;
                         Contract.EmployeeId = item.EmployeeId;
-                       
+
                         Contracts.Add(Contract);
                     }
                     return await Task.FromResult(Contracts);
@@ -75,6 +89,65 @@ namespace Projet_Stage.Services.Classes
                 throw ex;
             }
         }
+
+        public async Task<List<Contract>> GetContractByType(string Type)
+        {
+            return await _contractRepository.GetContractByTypeAsync(Type);
+        }
+
+        public async Task<bool> UpdateContractAsync(ContractGetModel contract)
+        {
+            try
+            {
+                var employee = await _employeeRepository.GetEmployeeByIdAsync(contract.EmployeeId);
+                if (employee == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    var existingContract = await _contractRepository.GetContractByIdAsync(contract.id);
+                    if (existingContract != null)
+                    {
+                        existingContract.Type = contract.Type;
+                        existingContract.Datedeb = contract.Datedeb;
+                        existingContract.DateFin = contract.DateFin;
+                        existingContract.EmployeeId = contract.EmployeeId;
+                        return await _contractRepository.UpdateContractAsync(existingContract);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<ContractGetModel>> GetContractsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var contracts = await _contractRepository.GetContractsByDateRangeAsync(startDate, endDate);
+
+                return contracts.Select(c => new ContractGetModel
+                {
+                    id = c.Idcontrat,
+                    Type = c.Type,
+                    Datedeb = c.Datedeb,
+                    DateFin = c.DateFin,
+                    EmployeeId = c.EmployeeId
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving contracts: {ex.Message}");
+            }
+        }
     }
-    
 }
+    
+

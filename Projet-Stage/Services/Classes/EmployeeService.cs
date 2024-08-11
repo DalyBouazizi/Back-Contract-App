@@ -209,7 +209,6 @@ namespace Projet_Stage.Services.Classes
 
         public async Task<bool> UpdateEmployeeAsync(EmployeeModel employee)
         {
-            Console.WriteLine("Received Matricule: " + employee.Matricule);
             try
             {
                 // Find the employee by Matricule
