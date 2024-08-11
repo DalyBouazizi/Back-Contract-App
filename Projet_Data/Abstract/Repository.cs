@@ -18,10 +18,16 @@ namespace Projet_Data.Abstract
         }
         public async Task<bool> AddEntity(T entity)
         {
-            // provide User for collection in Dbcontext : 
-            await dbContext.Set<T>().AddAsync(entity);
-            // save
-            await dbContext.SaveChangesAsync();
+            try
+            {
+                await dbContext.Set<T>().AddAsync(entity);
+                await dbContext.SaveChangesAsync();
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
 
             return true;
 

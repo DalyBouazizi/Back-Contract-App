@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Projet_Data.ModelsEF2;
 
 namespace Projet_Data.ModelsEF;
 

@@ -14,7 +14,6 @@ C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Sta
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.AssemblyInfoInputs.cache
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.AssemblyInfo.cs
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.csproj.CoreCompileInputs.cache
-C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\staticwebassets.development.json

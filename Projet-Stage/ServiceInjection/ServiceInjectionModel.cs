@@ -10,6 +10,7 @@ namespace Projet_Stage.ServiceInjection
         {
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IContractService, ContractService>();
             return services;
         }
 
