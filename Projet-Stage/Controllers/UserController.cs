@@ -94,7 +94,7 @@ namespace Projet_Stage.Controllers
             }
         }
 
-        [Route("UpdateUser/{IdUser}")]
+        [Route("UpdateUser")]
         [HttpPut]
         public async Task<ActionResult<string>> UpdateUserAsync(int IdUser, [FromForm] string Nom, [FromForm] string Prenom)
         {
