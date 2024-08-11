@@ -186,9 +186,40 @@ namespace Projet_Stage.Services.Classes
             }
         }
 
-        public Task<bool> UpdateEmployeeAsync(EmployeeModel Employee)
+        public async Task<bool> UpdateEmployeeAsync(EmployeeModel employee)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Received Matricule: " + employee.Matricule);
+            try
+            {
+                // Find the employee by Matricule
+                var existingEmployee = await _employeeRepository.GetEmployeeByIdAsync(employee.Matricule);
+                if (existingEmployee != null)
+                {
+                    // Update the properties of the employee entity
+                    existingEmployee.Nom = employee.Nom;
+                    existingEmployee.Prenom = employee.Prenom;
+                    existingEmployee.Poste = employee.Poste;
+                    existingEmployee.Adresse = employee.Adresse;
+                    existingEmployee.DateNaissance = employee.DateNaissance;
+                    existingEmployee.LieuNaissance = employee.LieuNaissance;
+                    existingEmployee.Cin = employee.Cin;
+                    existingEmployee.DateCin = employee.DateCin;
+                    existingEmployee.CategoriePro = employee.CategoriePro;
+                    existingEmployee.Salaireb = employee.Salaireb;
+                    existingEmployee.Salairen = employee.Salairen;
+
+                    // Call repository to update the employee
+                    return await _employeeRepository.UpdateEmployeeAsync(existingEmployee);
+                }
+                else
+                {
+                    return false; // Employee not found
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

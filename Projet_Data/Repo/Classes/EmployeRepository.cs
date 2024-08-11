@@ -99,7 +99,15 @@ namespace Projet_Data.Repo.Classes
 
         public async Task<bool> UpdateEmployeeAsync(Employee Employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _repository.UpdateEntity(Employee);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

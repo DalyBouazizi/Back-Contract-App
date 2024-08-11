@@ -114,6 +114,20 @@ namespace Projet_Stage.Controllers
                 return BadRequest("Failed to add employees.");
             }
         }
+        [Route("Updateemployee")]
+        [HttpPut]
+        public async Task<ActionResult<string>> UpdateEmployeeAsync( [FromForm] EmployeeModel employee)
+        {
+            bool res = await _employeeService.UpdateEmployeeAsync(employee);
+            if (res)
+            {
+                return Ok("Employee updated successfully");
+            }
+            else
+            {
+                return BadRequest("Employee not found or update failed");
+            }
+        }
 
 
 
