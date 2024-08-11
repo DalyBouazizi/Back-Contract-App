@@ -12,6 +12,7 @@ namespace Projet_Stage.Services.Interfaces
         Task<bool> UpdateUserAsync(UserModel User);
         Task<(bool isSuccess, List<int> failedUserIds)> AddListUsersAsync(List<UserModel> users);
         Task<(bool isSuccess, List<int> failedUserIds)> UpdateListUsersAsync(List<UserModel> users);
+        Task<String> LoginUser(int Matricule, String Password);
 
     }
 }

@@ -159,5 +159,30 @@ namespace Projet_Stage.Controllers
                 return BadRequest($"Failed to update users, users with the following IDs were not updated because they dont exist: {string.Join(", ", failedUserIds)}");
             }
         }
+        [HttpPost("Login")]
+        public async Task<ActionResult<UserModel>> Login([Required] int Matricule, [Required] string Password)
+        {
+            String Result = await _userService.LoginUser(Matricule, Password);
+            if (Result == null)
+            {
+                return BadRequest("Invalid matricule or password");
+            }else if (Result == "Password incorrect")
+            {
+                return BadRequest("Password incorrect");
+            }
+            else if (Result == "User with id "+Matricule+" not found")
+            {
+                return BadRequest("User not found");
+            }
+            else if (Result == "Success")
+            {
+                return Ok("You're good!!");
+            }
+            else
+            {
+                return BadRequest();
+            }
+           
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Projet_Data.ModelsEF;
+﻿using Microsoft.AspNetCore.Identity;
+using Projet_Data.ModelsEF;
 using Projet_Data.Repo.Interfaces;
 using Projet_Stage.Models;
 using Projet_Stage.Services.Interfaces;
@@ -18,6 +19,7 @@ namespace Projet_Stage.Services.Classes
         {
             var failedUserIds = new List<int>();
             var userEntities = new List<User>();
+            var passwordHasher = new PasswordHasher<User>();
             foreach (var user in users)
             {
                 var existingUser = await _userRepository.GetUserByIdAsync(user.Matricule);
@@ -28,7 +30,7 @@ namespace Projet_Stage.Services.Classes
                         Matricule = user.Matricule,
                         Nom = user.Nom,
                         Prenom = user.Prenom,
-                        Password = user.Password
+                        Password = passwordHasher.HashPassword(null, user.Password)
                     });
                 }
                 else
@@ -46,6 +48,7 @@ namespace Projet_Stage.Services.Classes
 
         public async Task<bool> AddUserAsync(UserModel user)
         {
+            var passwordHasher = new PasswordHasher<User>();
             bool res = false;
             try
             {
@@ -55,7 +58,9 @@ namespace Projet_Stage.Services.Classes
                     Newuser.Matricule = user.Matricule;
                     Newuser.Nom = user.Nom;
                     Newuser.Prenom = user.Prenom;
-                    Newuser.Password = user.Password;
+                    Newuser.Password = passwordHasher.HashPassword(null, user.Password);
+
+
                     res = await _userRepository.AddUserAsync(Newuser);
                 
                 
@@ -192,5 +197,35 @@ namespace Projet_Stage.Services.Classes
                 throw new Exception(ex.Message);
             }
         }
+        public async Task<String> LoginUser(int Matricule , String Password)
+        {
+
+           try
+            {
+                var user = await _userRepository.GetUserByIdAsync(Matricule);
+               
+                
+                if (user == null)
+                {
+                    return "User with id "+Matricule+" not found";
+                }
+
+                var passwordHasher = new PasswordHasher<User>();
+                var verificationResult = passwordHasher.VerifyHashedPassword(user, user.Password, Password);
+
+                if (verificationResult == PasswordVerificationResult.Failed)
+                {
+                    return "Password incorrect";
+                }
+                else
+                {
+                    return "Success";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }}
     }
-}
+
