@@ -110,8 +110,20 @@ namespace Projet_Data.Repo.Classes
             }
         }
 
+        public async Task<List<Contract>> GetContractByEmployeeIdAsync(int EmployeeId)
+        {
+            try
+            {
+                return await _context.Contracts.Where(e => e.EmployeeId == EmployeeId).ToListAsync();
 
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            {
 
-
+            }
+        }
     }
 }

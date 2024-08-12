@@ -103,6 +103,18 @@ namespace Projet_Data.Repo.Classes
             return await _context.Employees.Where(e => e.Poste == poste).ToListAsync();
         }
 
+        public async Task<List<Employee>> SortEmployeesByFirstNameAsync(bool ascending)
+        {
+            if (ascending)
+            {
+                return await _context.Employees.OrderBy(e => e.Nom).ToListAsync();
+            }
+            else
+            {
+                return await _context.Employees.OrderByDescending(e => e.Nom).ToListAsync();
+            }
+        }
+
         public async Task<List<Employee>> SortEmployeesByIdAsync(bool ascending)
         {
             if (ascending)
@@ -112,6 +124,18 @@ namespace Projet_Data.Repo.Classes
             else
             {
                 return await _context.Employees.OrderByDescending(e => e.Id).ToListAsync();
+            }
+        }
+
+        public async Task<List<Employee>> SortEmployeesByLastNameAsync(bool ascending)
+        {
+            if (ascending)
+            {
+                return await _context.Employees.OrderBy(e => e.Prenom).ToListAsync();
+            }
+            else
+            {
+                return await _context.Employees.OrderByDescending(e => e.Prenom).ToListAsync();
             }
         }
 

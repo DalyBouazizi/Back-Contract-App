@@ -99,5 +99,26 @@ namespace Projet_Stage.Controllers
                 return BadRequest($"Error: {ex.Message}");
             }
         }
+        [HttpGet("GetContractByEmployeeId")]
+        public async Task<ActionResult<List<ContractModel>>> GetContractByEmployeeId(int EmployeeId)
+        {
+            try { 
+            
+                var contracts = await _contractService.GetContractByEmployeeIdAsync(EmployeeId);
+            if(contracts == null || !contracts.Any())
+            {
+                return NotFound("No contracts found for the specified employee.");
+            }
+            else
+            {
+                return Ok(contracts);
+            }
+                
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
     }
 }

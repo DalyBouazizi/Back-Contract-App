@@ -147,6 +147,30 @@ namespace Projet_Stage.Services.Classes
                 throw new Exception($"Error retrieving contracts: {ex.Message}");
             }
         }
+
+        public async Task<List<ContractModel>> GetContractByEmployeeIdAsync(int EmployeeId)
+        {
+            var test = await _employeeRepository.GetEmployeeByIdAsync(EmployeeId);
+            if(test == null)
+            {
+                return null;
+            }
+            else
+            {
+                var Contracts =  await _contractRepository.GetContractByEmployeeIdAsync(EmployeeId);
+                List<ContractModel> DisplayContracts = new List<ContractModel>();
+                foreach(var contract in Contracts) {
+                    ContractModel DisplayContract = new ContractModel();
+                    DisplayContract.EmployeeId = contract.EmployeeId;
+                    DisplayContract.Datedeb = contract.Datedeb;
+                    DisplayContract.DateFin = contract.DateFin;
+                    DisplayContract.Type = contract.Type;
+                    DisplayContracts.Add(DisplayContract);
+
+                }
+                return DisplayContracts;
+            }
+        }
     }
 }
     

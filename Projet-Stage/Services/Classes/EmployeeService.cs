@@ -192,9 +192,19 @@ namespace Projet_Stage.Services.Classes
             return await _employeeRepository.GetEmployeesByPosteAsync(poste);
         }
 
+        public async Task<List<Employee>> SortEmployeesByFirstNameAsync(bool ascending =true)
+        {
+            return await _employeeRepository.SortEmployeesByFirstNameAsync(ascending);
+        }
+
         public async Task<List<Employee>> SortEmployeesByIdAsync(bool ascending = true)
         {
             return await _employeeRepository.SortEmployeesByIdAsync(ascending);
+        }
+
+        public async Task<List<Employee>> SortEmployeesByLastNameAsync(bool ascending = true)
+        {
+            return await _employeeRepository.SortEmployeesByLastNameAsync(ascending);
         }
 
         public async Task<List<Employee>> SortEmployeesByPosteAsync(bool ascending = true)

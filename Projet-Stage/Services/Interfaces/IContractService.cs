@@ -12,5 +12,6 @@ namespace Projet_Stage.Services.Interfaces
         Task<bool> UpdateContractAsync(ContractGetModel contract);
         Task<List<Contract>> GetContractByType(string Type);
         Task<List<ContractGetModel>> GetContractsByDateRangeAsync(DateTime startDate, DateTime endDate);
+        Task<List<ContractModel>> GetContractByEmployeeIdAsync(int EmployeeId);
     }
 }

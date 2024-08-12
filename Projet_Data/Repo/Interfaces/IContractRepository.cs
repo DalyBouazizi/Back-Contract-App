@@ -19,5 +19,6 @@ namespace Projet_Data.Repo.Interfaces
         Task<bool> UpdateContractAsync(Contract Contract);
         Task<List<Contract>> GetContractByTypeAsync(string Type);
         Task<ICollection<Contract>> GetContractsByDateRangeAsync(DateTime startDate, DateTime endDate);
+        Task<List<Contract>> GetContractByEmployeeIdAsync(int EmployeeId);
     }
 }

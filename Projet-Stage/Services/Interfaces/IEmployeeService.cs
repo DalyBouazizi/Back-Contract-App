@@ -16,6 +16,8 @@ namespace Projet_Stage.Services.Interfaces
 
         Task<List<Employee>> SortEmployeesByIdAsync(bool ascending);
         Task<List<Employee>> SortEmployeesByPosteAsync(bool ascending);
+        Task<List<Employee>> SortEmployeesByFirstNameAsync(bool ascending);
+        Task<List<Employee>> SortEmployeesByLastNameAsync(bool ascending);
         Task<List<Employee>> SortEmployeesBySalaryAsync(decimal value, bool over);
     }
 }
