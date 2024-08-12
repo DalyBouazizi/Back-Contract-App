@@ -137,3 +137,4 @@ C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\runtimes\w
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\Projet_Data.dll
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\Projet_Data.pdb
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.sourcelink.json
+C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.MvcApplicationPartsAssemblyInfo.cs
