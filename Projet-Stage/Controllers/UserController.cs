@@ -1,12 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Projet_Data.Repo.Interfaces;
 using Projet_Stage.Models;
 using Projet_Stage.Services.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Projet_Stage.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -17,7 +23,7 @@ namespace Projet_Stage.Controllers
         {
             this._userService = userService;
         }
-
+      
         [Route("AddUser")]
         [HttpPost]
         public async Task<ActionResult> AddUserAsync([Required] UserModel user)
@@ -69,7 +75,7 @@ namespace Projet_Stage.Controllers
             if (user == null)
             {
                 
-                return BadRequest("User with id " + IdUser + " Not found");
+                return NotFound("User with id " + IdUser + " Not found");
             }
             else
             {
@@ -176,12 +182,35 @@ namespace Projet_Stage.Controllers
             }
             else if (Result == "Success")
             {
-                return Ok("You're good!!");
+                var claims = new[]
+                {
+            new Claim(JwtRegisteredClaimNames.Sub, Matricule.ToString()),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecretKeyForJwtTokenEncryption"));
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                var token = new JwtSecurityToken(
+                    issuer: "http://localhost:5008",
+                    audience: "http://localhost:4200",
+                    claims: claims,
+                    expires: DateTime.Now.AddHours(5),
+                    signingCredentials: creds);
+
+                return Ok(new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token)
+                });
             }
             else
             {
-                return BadRequest();
+                return Unauthorized();
             }
+
+
+
+
            
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Projet_Data.ModelsEF;
 using Projet_Stage.Models;
@@ -8,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Projet_Stage.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
@@ -67,7 +69,7 @@ namespace Projet_Stage.Controllers
                 if (user == null)
                 {
 
-                    return Ok("User with id " + IdEmployee + " Not found");
+                    return NotFound("User with id " + IdEmployee + " Not found");
                 }
                 else
                 {

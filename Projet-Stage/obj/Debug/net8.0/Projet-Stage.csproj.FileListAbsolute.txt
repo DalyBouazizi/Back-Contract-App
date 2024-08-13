@@ -138,3 +138,4 @@ C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\Projet_Dat
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\Projet_Data.pdb
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.sourcelink.json
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
