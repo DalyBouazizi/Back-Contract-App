@@ -20,7 +20,7 @@ namespace Projet_Stage.Controllers
 
         [Route("AddUser")]
         [HttpPost]
-        public async Task<ActionResult<String>> AddUserAsync([Required] UserModel user)
+        public async Task<ActionResult> AddUserAsync([Required] UserModel user)
         {
             bool res = false;
 

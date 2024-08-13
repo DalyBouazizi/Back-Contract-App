@@ -67,7 +67,7 @@ namespace Projet_Stage.Controllers
                 if (user == null)
                 {
 
-                    return BadRequest("User with id " + IdEmployee + " Not found");
+                    return Ok("User with id " + IdEmployee + " Not found");
                 }
                 else
                 {
