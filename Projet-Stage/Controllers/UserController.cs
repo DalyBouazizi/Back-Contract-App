@@ -165,6 +165,7 @@ namespace Projet_Stage.Controllers
                 return BadRequest($"Failed to update users, users with the following IDs were not updated because they dont exist: {string.Join(", ", failedUserIds)}");
             }
         }
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<ActionResult<UserModel>> Login([Required] int Matricule, [Required] string Password)
         {
