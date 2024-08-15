@@ -145,7 +145,7 @@ namespace Projet_Stage.Controllers
             }
             [Route("Updateemployee")]
             [HttpPut]
-            public async Task<ActionResult<string>> UpdateEmployeeAsync([FromForm] EmployeeModel employee)
+            public async Task<ActionResult<string>> UpdateEmployeeAsync([FromBody] EmployeeModel employee)
             {
                 bool res = await _employeeService.UpdateEmployeeAsync(employee);
                 if (res)
