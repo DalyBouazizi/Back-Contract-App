@@ -89,6 +89,14 @@ namespace Projet_Data.Repo.Classes
             }
         }
 
+        public async Task<Employee> GetEmployeeByCinAsync(string Cin)
+        {
+            Employee Employee;
+            Employee = await _context.Employees
+                .Where(u => u.Cin == Cin).FirstOrDefaultAsync();
+            return Employee;
+        }
+
         public async Task<Employee> GetEmployeeByIdAsync(int IdEmployee)
         {
             Employee Employee;

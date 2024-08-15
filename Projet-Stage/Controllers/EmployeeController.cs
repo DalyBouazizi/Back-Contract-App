@@ -77,7 +77,34 @@ namespace Projet_Stage.Controllers
 
                 }
             }
-            [Route("DeleteEmployee")]
+        [Route("GetEmpployeeByCin")]
+        [HttpGet]
+        public async Task<ActionResult<EmployeeModel>> GetEmployeeByCinAsync([Required] string Cin)
+        {
+
+            EmployeeModel emp = new EmployeeModel();
+            try
+            {
+                emp = await _employeeService.GetEmployeeByCinAsync(Cin);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            if (emp == null)
+            {
+
+                return NotFound("User with Cin " + Cin + " Not found");
+            }
+            else
+            {
+                return Ok(emp);
+
+            }
+        }
+        [Route("DeleteEmployee")]
             [HttpDelete]
             public async Task<ActionResult<String>> DeleteEmployeeAsync([Required] int IdEmployee)
             {

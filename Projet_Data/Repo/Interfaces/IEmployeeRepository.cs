@@ -14,6 +14,7 @@ namespace Projet_Data.Repo.Interfaces
 
         Task<bool> AddEmployeeAsync(Employee Employee);
         Task<Employee> GetEmployeeByIdAsync(int IdEmployee);
+        Task<Employee> GetEmployeeByCinAsync(string Cin);
         Task<bool> DeleteEmployeeAsync(int IdEmployee);
         Task<bool> UpdateEmployeeAsync(Employee Employee);
         Task<bool> AddListEmployeesAsync(List<Employee> Employee);
