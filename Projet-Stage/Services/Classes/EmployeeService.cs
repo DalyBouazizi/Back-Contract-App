@@ -1,4 +1,5 @@
-﻿using Projet_Data.ModelsEF;
+﻿using Projet_Data.Features;
+using Projet_Data.ModelsEF;
 using Projet_Data.Repo.Classes;
 using Projet_Data.Repo.Interfaces;
 using Projet_Stage.Models;
@@ -224,6 +225,18 @@ namespace Projet_Stage.Services.Classes
             {
                 throw ex;
             }
+        }
+
+        public async Task<List<Employee>> GetEmployeesByFiltersAsync(FilterCriteria criteria)
+        {
+            try
+            {
+                return await _employeeRepository.GetEmployeesByFilterAsync(criteria);
+
+            }catch(Exception ex)
+            {
+                throw ex;
+            }   
         }
 
         public async Task<List<Employee>> GetEmployeesByPosteAsync(string poste)

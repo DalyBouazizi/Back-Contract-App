@@ -1,4 +1,5 @@
-﻿using Projet_Data.ModelsEF;
+﻿using Projet_Data.Features;
+using Projet_Data.ModelsEF;
 using Projet_Stage.Models;
 
 namespace Projet_Stage.Services.Interfaces
@@ -20,5 +21,6 @@ namespace Projet_Stage.Services.Interfaces
         Task<List<Employee>> SortEmployeesByFirstNameAsync(bool ascending);
         Task<List<Employee>> SortEmployeesByLastNameAsync(bool ascending);
         Task<List<Employee>> SortEmployeesBySalaryAsync(decimal value, bool over);
+        Task<List<Employee>> GetEmployeesByFiltersAsync(FilterCriteria criteria);
     }
 }

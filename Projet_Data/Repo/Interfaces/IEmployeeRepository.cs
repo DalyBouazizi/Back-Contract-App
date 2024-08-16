@@ -1,4 +1,5 @@
 ﻿using Projet_Data.Abstract;
+using Projet_Data.Features;
 using Projet_Data.ModelsEF;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace Projet_Data.Repo.Interfaces
         Task<List<Employee>> SortEmployeesByLastNameAsync(bool ascending);
 
         Task<List<Employee>> SortEmployeesBySalaryAsync(decimal value, bool over);
+
+        Task<List<Employee>> GetEmployeesByFilterAsync(FilterCriteria criteria);
 
 
 

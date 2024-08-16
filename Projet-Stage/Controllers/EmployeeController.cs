@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Projet_Data.Features;
 using Projet_Data.ModelsEF;
 using Projet_Stage.Models;
 using Projet_Stage.Services.Classes;
@@ -199,8 +200,29 @@ namespace Projet_Stage.Controllers
         }
 
 
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetEmployeesByFilters([FromQuery] FilterCriteria criteria)
+        {
+            if (criteria == null)
+            {
+
+                return BadRequest("Invalid filter criteria.");
+            }
+
+            var employees = await _employeeService.GetEmployeesByFiltersAsync(criteria);
+
+            if (employees == null || !employees.Any())
+            {
+                return NotFound("No employees found matching the criteria.");
+            }
+
+            return Ok(employees);
+        }
+
+
+
 
     }
-    }
+}
 
 

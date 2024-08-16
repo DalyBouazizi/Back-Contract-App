@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Projet_Data.Features;
 
 namespace Projet_Data.Repo.Classes
 {
@@ -105,7 +106,71 @@ namespace Projet_Data.Repo.Classes
             return Employee;
         }
 
-        
+        public async Task<List<Employee>> GetEmployeesByFilterAsync(FilterCriteria criteria)
+        {
+            var query = _context.Employees.AsQueryable();
+
+            try
+            {
+                if (criteria.Positions != null && criteria.Positions.Any())
+                {
+                    // Split the positions if they are passed as a single comma-separated string
+                    var positionsList = criteria.Positions.SelectMany(p => p.Split(',')).Select(p => p.Trim()).ToList();
+
+                    // Log the positions for debugging
+                    Console.WriteLine("Positions: " + string.Join(", ", positionsList));
+
+                    // Filter the query based on the positions
+                    query = query.Where(e => positionsList.Contains(e.Poste));
+                }
+
+           
+
+                if (criteria.Categories != null && criteria.Categories.Any())
+
+                {
+                    // Split the categories if they are passed as a single comma-separated string
+                    var categoriesList = criteria.Categories.SelectMany(c => c.Split(',')).Select(c => c.Trim()).ToList();
+
+                    // Log the categories for debugging
+                    Console.WriteLine("Categories: " + string.Join(", ", categoriesList));
+
+                    // Filter the query based on the categories
+                    query = query.Where(e => categoriesList.Contains(e.CategoriePro));
+                }
+
+                if (criteria.MinSalary.HasValue)
+                {
+                    query = query.Where(e => e.Salaireb >= criteria.MinSalary.Value);
+                }
+
+                if (criteria.MaxSalary.HasValue)
+                {
+                   
+                    query = query.Where(e => e.Salaireb <= criteria.MaxSalary.Value);
+                
+                }
+
+                if (criteria.MinAge.HasValue)
+                {
+                    var minDateOfBirth = DateTime.Now.AddYears(-criteria.MinAge.Value);
+                    query = query.Where(e => e.DateNaissance.HasValue && e.DateNaissance.Value <= minDateOfBirth);
+                }
+
+                if (criteria.MaxAge.HasValue)
+                {
+                    var maxDateOfBirth = DateTime.Now.AddYears(-criteria.MaxAge.Value);
+                    query = query.Where(e => e.DateNaissance.HasValue && e.DateNaissance.Value >= maxDateOfBirth);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return await query.ToListAsync();
+        }
+    
+
         public async Task<List<Employee>> GetEmployeesByPosteAsync(string poste)
         {
             return await _context.Employees.Where(e => e.Poste == poste).ToListAsync();
