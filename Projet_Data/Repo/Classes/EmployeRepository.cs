@@ -52,7 +52,7 @@ namespace Projet_Data.Repo.Classes
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception(ex.Message+"hihihaha");
             }
         }
 

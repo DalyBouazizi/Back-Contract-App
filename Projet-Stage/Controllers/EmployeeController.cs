@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Projet_Stage.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
