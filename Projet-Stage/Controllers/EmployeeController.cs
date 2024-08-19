@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Projet_Stage.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
@@ -78,6 +78,33 @@ namespace Projet_Stage.Controllers
 
                 }
             }
+        [Route("GetEmpployeeByRealId")]
+        [HttpGet]
+        public async Task<ActionResult<EmployeeModel>> GetEmployeeByRealIdAsync([Required] int IdEmployee)
+        {
+
+            EmployeeModel user = new EmployeeModel();
+            try
+            {
+                user = await _employeeService.GetEmployeeByRealIdAsync(IdEmployee);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            if (user == null)
+            {
+
+                return NotFound("User with id " + IdEmployee + " Not found");
+            }
+            else
+            {
+                return Ok(user);
+
+            }
+        }
         [Route("GetEmpployeeByCin")]
         [HttpGet]
         public async Task<ActionResult<EmployeeModel>> GetEmployeeByCinAsync([Required] string Cin)

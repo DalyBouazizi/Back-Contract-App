@@ -227,6 +227,45 @@ namespace Projet_Stage.Services.Classes
             }
         }
 
+        public async Task<EmployeeModel> GetEmployeeByRealIdAsync(int IdEmployee)
+        {
+            try
+            {
+
+                var res = await _employeeRepository.GetEmployeeByRealIdAsync(IdEmployee);
+                if (res == null)
+                {
+
+                    return null;
+                }
+                else
+                {
+                    EmployeeModel employee = new EmployeeModel();
+                    employee.Matricule = res.Matricule;
+                    employee.Nom = res.Nom;
+                    employee.Prenom = res.Prenom;
+                    employee.Poste = res.Poste;
+                    employee.Adresse = res.Adresse;
+                    employee.DateNaissance = res.DateNaissance;
+                    employee.Cin = res.Cin;
+                    employee.LieuNaissance = res.LieuNaissance;
+                    employee.DateCin = res.DateCin;
+                    employee.CategoriePro = res.CategoriePro;
+                    employee.Salaireb = res.Salaireb;
+                    employee.Salairen = res.Salairen;
+
+                    return await Task.FromResult(employee);
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<List<Employee>> GetEmployeesByFiltersAsync(FilterCriteria criteria)
         {
             try

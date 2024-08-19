@@ -106,6 +106,14 @@ namespace Projet_Data.Repo.Classes
             return Employee;
         }
 
+        public async Task<Employee> GetEmployeeByRealIdAsync(int IdEmployee)
+        {
+            Employee Employee;
+            Employee = await _context.Employees
+                .Where(u => u.Id.Equals(IdEmployee)).FirstOrDefaultAsync();
+            return Employee;
+        }
+
         public async Task<List<Employee>> GetEmployeesByFilterAsync(FilterCriteria criteria)
         {
             var query = _context.Employees.AsQueryable();
