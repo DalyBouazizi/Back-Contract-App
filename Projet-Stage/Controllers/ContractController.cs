@@ -7,7 +7,7 @@ using Projet_Stage.Services.Interfaces;
 
 namespace Projet_Stage.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ContractController : ControllerBase

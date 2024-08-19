@@ -187,7 +187,7 @@ namespace Projet_Stage.Services.Classes
             }
         }
 
-        public async Task<EmployeeModel> GetEmployeeByIdAsync(int IdEmployee)
+        public async Task<EmployeeGetModel> GetEmployeeByIdAsync(int IdEmployee)
         {
 
             try
@@ -201,7 +201,8 @@ namespace Projet_Stage.Services.Classes
                 }
                 else
                 {
-                    EmployeeModel employee = new EmployeeModel();
+                    EmployeeGetModel employee = new EmployeeGetModel();
+                    employee.Id = res.Id;
                     employee.Matricule = res.Matricule;
                     employee.Nom = res.Nom;
                     employee.Prenom = res.Prenom;

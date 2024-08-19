@@ -8,7 +8,7 @@ namespace Projet_Stage.Services.Interfaces
     {
         Task<List<EmployeeModel>> GetAllEmployeesAsync();
         Task<bool> AddEmployeeAsync(EmployeeModel Employee);
-        Task<EmployeeModel> GetEmployeeByIdAsync(int IdEmployee);
+        Task<EmployeeGetModel> GetEmployeeByIdAsync(int IdEmployee);
         Task<EmployeeModel> GetEmployeeByRealIdAsync(int IdEmployee);
         Task<EmployeeModel> GetEmployeeByCinAsync(string Cin);
         Task<bool> DeleteEmployeeAsync(int IdEmployee);

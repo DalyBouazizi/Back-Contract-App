@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Projet_Stage.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
@@ -53,10 +53,10 @@ namespace Projet_Stage.Controllers
             }
             [Route("GetEmpployeeById")]
             [HttpGet]
-            public async Task<ActionResult<EmployeeModel>> GetEmployeeByIdAsync([Required] int IdEmployee)
+            public async Task<ActionResult<EmployeeGetModel>> GetEmployeeByIdAsync([Required] int IdEmployee)
             {
 
-                EmployeeModel user = new EmployeeModel();
+            EmployeeGetModel user = new EmployeeGetModel();
                 try
                 {
                     user = await _employeeService.GetEmployeeByIdAsync(IdEmployee);

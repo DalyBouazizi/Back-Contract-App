@@ -150,7 +150,7 @@ namespace Projet_Stage.Services.Classes
 
         public async Task<List<ContractModel>> GetContractByEmployeeIdAsync(int EmployeeId)
         {
-            var test = await _employeeRepository.GetEmployeeByIdAsync(EmployeeId);
+            var test = await _employeeRepository.GetEmployeeByRealIdAsync(EmployeeId);
             if(test == null)
             {
                 return null;
