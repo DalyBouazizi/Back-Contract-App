@@ -21,7 +21,7 @@ namespace Projet_Stage.Services.Classes
         public async Task<bool> AddContractAsync(ContractModel Contract)
         {
             // Retrieve the EmployeeId based on Matricule
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(Contract.EmployeeId);
+            var employee = await _employeeRepository.GetEmployeeByRealIdAsync(Contract.EmployeeId);
             if (employee == null)
             {
                 return false;
