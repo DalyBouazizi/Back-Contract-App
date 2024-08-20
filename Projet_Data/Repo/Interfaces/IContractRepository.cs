@@ -1,6 +1,6 @@
 ﻿using Projet_Data.Abstract;
 using Projet_Data.ModelsEF;
-using Projet_Data.ModelsEF2;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

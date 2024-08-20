@@ -1,5 +1,5 @@
 ﻿using Projet_Data.ModelsEF;
-using Projet_Data.ModelsEF2;
+
 using Projet_Data.Repo.Classes;
 using Projet_Data.Repo.Interfaces;
 using Projet_Stage.Models;
@@ -33,7 +33,10 @@ namespace Projet_Stage.Services.Classes
                 NewContract.EmployeeId = employee.Id;
                 NewContract.Datedeb = Contract.Datedeb;
                 NewContract.DateFin = Contract.DateFin;
+                NewContract.Salaireb = Contract.Salaireb;   
+                NewContract.Salairen = Contract.Salairen;
                 NewContract.Type = Contract.Type;
+
 
                 var res = await _contractRepository.AddContractAsync(NewContract);
                 return res;
@@ -78,6 +81,8 @@ namespace Projet_Stage.Services.Classes
                         Contract.DateFin = item.DateFin;
                         Contract.Datedeb = item.Datedeb;
                         Contract.EmployeeId = item.EmployeeId;
+                        Contract.Salaireb = item.Salaireb;  
+                        Contract.Salairen = item.Salairen;
 
                         Contracts.Add(Contract);
                     }
@@ -113,6 +118,9 @@ namespace Projet_Stage.Services.Classes
                         existingContract.Datedeb = contract.Datedeb;
                         existingContract.DateFin = contract.DateFin;
                         existingContract.EmployeeId = contract.EmployeeId;
+                        existingContract.Salairen = contract.Salairen;
+                        existingContract.Salaireb = contract.Salaireb;
+                        
                         return await _contractRepository.UpdateContractAsync(existingContract);
                     }
                     else
@@ -139,7 +147,9 @@ namespace Projet_Stage.Services.Classes
                     Type = c.Type,
                     Datedeb = c.Datedeb,
                     DateFin = c.DateFin,
-                    EmployeeId = c.EmployeeId
+                    EmployeeId = c.EmployeeId,
+                    Salairen = c.Salairen,
+                    Salaireb = c.Salaireb
                 }).ToList();
             }
             catch (Exception ex)
@@ -165,6 +175,9 @@ namespace Projet_Stage.Services.Classes
                     DisplayContract.Datedeb = contract.Datedeb;
                     DisplayContract.DateFin = contract.DateFin;
                     DisplayContract.Type = contract.Type;
+                    DisplayContract.Salaireb = contract.Salaireb;
+                    DisplayContract.Salairen = contract.Salairen;   
+
                     DisplayContracts.Add(DisplayContract);
 
                 }
@@ -194,6 +207,9 @@ namespace Projet_Stage.Services.Classes
             FinalContract.Datedeb = newContract.Datedeb;
             FinalContract.DateFin = newContract.DateFin;
             FinalContract.Type = newContract.Type;
+            FinalContract.Salaireb = newContract.Salaireb;
+            FinalContract.Salairen = newContract.Salairen;
+
 
             // Add the new contract without altering its start date
             await _contractRepository.AddContractAsync(FinalContract);
@@ -219,6 +235,9 @@ namespace Projet_Stage.Services.Classes
                         Contract.DateFin = item.DateFin;
                         Contract.Datedeb = item.Datedeb;
                         Contract.EmployeeId = item.EmployeeId;
+                        Contract.Salaireb = item.Salaireb;
+                        Contract.Salairen = item.Salairen;
+
 
                         Contracts.Add(Contract);
                     }

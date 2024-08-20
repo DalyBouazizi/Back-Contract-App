@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Projet_Data.ModelsEF2;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Projet_Data.Repo.Classes

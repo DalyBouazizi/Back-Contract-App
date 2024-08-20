@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using Projet_Data.ModelsEF;
 
-namespace Projet_Data.ModelsEF2;
+namespace Projet_Data.ModelsEF;
 
 [Table("Contract")]
 public partial class Contract
@@ -23,6 +22,12 @@ public partial class Contract
     public DateTime? DateFin { get; set; }
 
     public int EmployeeId { get; set; }
+
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? Salaireb { get; set; }
+
+    [Column(TypeName = "decimal(18, 2)")]
+    public decimal? Salairen { get; set; }
 
     [ForeignKey("EmployeeId")]
     [InverseProperty("Contracts")]
