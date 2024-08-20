@@ -48,6 +48,21 @@ namespace Projet_Stage.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Route("GetAllLatestContracts")]
+        [HttpGet]
+        public async Task<ActionResult<List<ContractGetModel>>> GetAllLatestContractsAsync()
+        {
+            List<ContractGetModel> contracts = new List<ContractGetModel>();
+            try
+            {
+                contracts = await _contractService.GetLatestContractsAsync();
+                return Ok(contracts);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpDelete("DeleteContract")]
         public async Task<IActionResult> DeleteContract(int IdContract)
         {
@@ -116,6 +131,20 @@ namespace Projet_Stage.Controllers
                 return Ok(contracts);
             }
                 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("RenewContract")]
+        public async Task<IActionResult> RenewContract([FromBody] ContractRenewalModel renewalModel)
+        {
+            try
+            {
+                await _contractService.RenewContractAsync(renewalModel.EmployeeId, renewalModel.NewContract);
+                return Ok("Contract renewed successfully.");
             }
             catch (Exception ex)
             {

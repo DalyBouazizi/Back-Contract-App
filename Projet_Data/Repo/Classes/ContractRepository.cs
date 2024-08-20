@@ -125,5 +125,32 @@ namespace Projet_Data.Repo.Classes
 
             }
         }
+
+        public async Task<Contract> GetLatestContractByEmployeeIdAsync(int employeeId)
+        {
+            
+                return await _context.Contracts
+                    .Where(c => c.EmployeeId == employeeId)
+                    .OrderByDescending(c => c.DateFin)  // Assuming dateFin is the end date
+                    .FirstOrDefaultAsync();
+            
+        }
+
+        public async Task<ICollection<Contract>> GetLatestContractsAsync()
+        {
+            try
+            {
+                var latestContracts = await _context.Contracts
+                    .GroupBy(c => c.EmployeeId)
+                    .Select(g => g.OrderByDescending(c => c.DateFin).FirstOrDefault())
+                    .ToListAsync();
+
+                return latestContracts;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

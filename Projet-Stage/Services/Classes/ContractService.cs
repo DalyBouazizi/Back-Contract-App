@@ -171,6 +171,65 @@ namespace Projet_Stage.Services.Classes
                 return DisplayContracts;
             }
         }
+
+        public async Task RenewContractAsync(int employeeId, ContractModel newContract)
+        {
+            // Get the latest contract for the employee
+            var latestContract = await _contractRepository.GetLatestContractByEmployeeIdAsync(employeeId);
+
+            if (latestContract == null)
+            {
+                throw new Exception("No existing contracts found for the employee.");
+            }
+
+            // Optionally update the end date of the old contract (if required)
+            latestContract.DateFin = DateTime.UtcNow; // or any other date that makes sense
+            await _contractRepository.UpdateContractAsync(latestContract);
+
+
+            //convert from ContractModel to Contract from library : 
+            Contract FinalContract = new Contract();
+
+            FinalContract.EmployeeId = employeeId;
+            FinalContract.Datedeb = newContract.Datedeb;
+            FinalContract.DateFin = newContract.DateFin;
+            FinalContract.Type = newContract.Type;
+
+            // Add the new contract without altering its start date
+            await _contractRepository.AddContractAsync(FinalContract);
+        }
+
+        public async Task<List<ContractGetModel>> GetLatestContractsAsync()
+        {
+            List<ContractGetModel> Contracts = new List<ContractGetModel>();
+            try
+            {
+                var res = await _contractRepository.GetLatestContractsAsync();
+                if (res == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    foreach (var item in res)
+                    {
+                        ContractGetModel Contract = new ContractGetModel();
+                        Contract.id = item.Idcontrat;
+                        Contract.Type = item.Type;
+                        Contract.DateFin = item.DateFin;
+                        Contract.Datedeb = item.Datedeb;
+                        Contract.EmployeeId = item.EmployeeId;
+
+                        Contracts.Add(Contract);
+                    }
+                    return await Task.FromResult(Contracts);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
     
