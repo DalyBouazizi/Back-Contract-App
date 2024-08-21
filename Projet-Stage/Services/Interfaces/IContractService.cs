@@ -16,5 +16,6 @@ namespace Projet_Stage.Services.Interfaces
         Task<List<ContractGetModel>> GetContractsByDateRangeAsync(DateTime startDate, DateTime endDate);
         Task<List<ContractModel>> GetContractByEmployeeIdAsync(int EmployeeId);
         Task RenewContractAsync(int employeeId, ContractModel newContract);
+        Task<ContractGetModel> GetLatestContractByEmployeeIdAsync(int employeeId);
     }
 }

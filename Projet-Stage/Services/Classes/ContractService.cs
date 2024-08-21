@@ -104,7 +104,7 @@ namespace Projet_Stage.Services.Classes
         {
             try
             {
-                var employee = await _employeeRepository.GetEmployeeByIdAsync(contract.EmployeeId);
+                var employee = await _employeeRepository.GetEmployeeByRealIdAsync(contract.EmployeeId);
                 if (employee == null)
                 {
                     return false;
@@ -248,6 +248,38 @@ namespace Projet_Stage.Services.Classes
             {
                 throw ex;
             }
+        }
+
+        public async Task<ContractGetModel> GetLatestContractByEmployeeIdAsync(int employeeId)
+        {
+            try
+            {
+                var res = await _contractRepository.GetLatestContractByEmployeeIdAsync(employeeId);
+                if (res == null)
+{
+                    return null;
+                }
+                else { 
+                ContractGetModel Contract = new ContractGetModel();
+                Contract.id = res.Idcontrat;
+                Contract.Type = res.Type;
+                Contract.DateFin = res.DateFin;
+                Contract.Datedeb = res.Datedeb;
+                Contract.EmployeeId = res.EmployeeId;
+                Contract.Salaireb = res.Salaireb;
+                Contract.Salairen = res.Salairen;
+
+                return Contract;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+          
+            
+            
+            
         }
     }
 }

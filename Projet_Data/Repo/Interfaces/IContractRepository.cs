@@ -25,6 +25,7 @@ namespace Projet_Data.Repo.Interfaces
 
         Task<ICollection<Contract>> GetLatestContractsAsync();
 
+       
 
     }
 }

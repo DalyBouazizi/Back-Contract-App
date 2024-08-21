@@ -101,6 +101,16 @@ namespace Projet_Stage.Controllers
             }
             return Ok(Contracts);
         }
+        [HttpGet("GetLatestByEmpId")]
+        public async Task<ActionResult<ContractGetModel>> GetLatestByEmpId(int EmployeeID)
+        {
+            var Contract = await _contractService.GetLatestContractByEmployeeIdAsync(EmployeeID);
+            if (Contract == null )
+            {
+                return NotFound("No Contract found with the specified ID.");
+            }
+            return Ok(Contract);
+        }
         [HttpGet("GetContractsByDateRange")]
         public async Task<ActionResult<List<ContractModel>>> GetContractsByDateRange(
        [FromQuery] DateTime startDate,
