@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MimeKit.Text;
+using Projet_Stage.Services.Classes;
+using Projet_Stage.Services.Interfaces;
 
 
 namespace Projet_Stage.Controllers
@@ -11,30 +13,38 @@ namespace Projet_Stage.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        [HttpPost("SendEmail")]
-        public IActionResult SendEmail(string body)
+
+        private readonly  IEmailService emailService;
+
+        public EmailController(IEmailService emailService)
         {
-            var email = new MimeMessage();
-            email.From.Add(new MailboxAddress("Sebn TN2 ", "sebn@sebn.tn"));
-            email.To.Add(MailboxAddress.Parse("bouazizimedali99@gmail.com"));
-            email.Subject = "Contract end in one month";
-            email.Body = new TextPart(TextFormat.Html) { Text = body };
+            this.emailService = emailService;
+        }
 
-            using var smtp = new SmtpClient();
 
+        [HttpPost("SendEmail")]
+        public async Task<IActionResult> SendEmail(String to,String Subject,String body)
+        {
+            bool res = false;
             try
             {
-                smtp.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                smtp.Authenticate("bouazizimedali50@gmail.com", "hozv rqjr dcfz svmd");
-                smtp.Send(email);
-                smtp.Disconnect(true);
-                return Ok("Email sent successfully");
+                res = await this.emailService.SendEmailAsync(to, Subject, body);
+                if (res == false)
+                {
+                    
+                    return BadRequest("Error sending email");
+                }
+                else
+                {
+                    return Ok("Email sent successfully");
+                }
+
             }
-            catch (Exception ex)
-            {
-                // Handle exceptions
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error sending email: {ex.Message}");
+            catch (Exception ex) {
+                return BadRequest(ex.Message);
             }
+            
+            
         }
 
 

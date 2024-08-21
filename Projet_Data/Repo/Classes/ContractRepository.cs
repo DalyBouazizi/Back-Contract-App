@@ -152,5 +152,13 @@ namespace Projet_Data.Repo.Classes
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<List<Contract>> GetContractsEndingInOneMonthAsync()
+        {
+            var endDate = DateTime.Now.AddMonths(1);
+            return await _context.Contracts
+                .Where(c => c.DateFin <= endDate && c.DateFin >= DateTime.Now)
+                .ToListAsync();
+        }
     }
 }

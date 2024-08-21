@@ -161,5 +161,26 @@ namespace Projet_Stage.Controllers
                 return BadRequest($"Error: {ex.Message}");
             }
         }
+
+
+        // --------------------------------------- 
+
+
+        [HttpGet]
+        [Route("GetContractsEndingInOneMonth")]
+        public async Task<ActionResult<List<ContractGetModel>>> GetContractsEndingInOneMonth()
+        {
+
+            List<ContractGetModel> contracts = new List<ContractGetModel>();
+            try
+            {
+                contracts = await _contractService.GetAllContractsAsync();
+                return Ok(contracts);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

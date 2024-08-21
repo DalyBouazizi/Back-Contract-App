@@ -25,7 +25,10 @@ namespace Projet_Data.Repo.Interfaces
 
         Task<ICollection<Contract>> GetLatestContractsAsync();
 
-       
+        Task<List<Contract>> GetContractsEndingInOneMonthAsync();
+
+
+
 
     }
 }

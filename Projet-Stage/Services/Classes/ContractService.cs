@@ -281,6 +281,48 @@ namespace Projet_Stage.Services.Classes
             
             
         }
+
+        public async Task<List<ContractGetModel>> GetContractsEndingInOneMonthAsync()
+        {
+            try
+            {
+
+                List<ContractGetModel> Contracts = new List<ContractGetModel>();
+                try
+                {
+                    var res = await _contractRepository.GetContractsEndingInOneMonthAsync();
+                    if (res == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        foreach (var item in res)
+                        {
+                            ContractGetModel Contract = new ContractGetModel();
+                            Contract.id = item.Idcontrat;
+                            Contract.Type = item.Type;
+                            Contract.DateFin = item.DateFin;
+                            Contract.Datedeb = item.Datedeb;
+                            Contract.EmployeeId = item.EmployeeId;
+                            Contract.Salaireb = item.Salaireb;
+                            Contract.Salairen = item.Salairen;
+
+                            Contracts.Add(Contract);
+                        }
+                        return await Task.FromResult(Contracts);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
     
