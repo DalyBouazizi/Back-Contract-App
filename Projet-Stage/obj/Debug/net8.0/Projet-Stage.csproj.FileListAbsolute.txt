@@ -139,3 +139,7 @@ C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\Projet_Dat
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.sourcelink.json
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\obj\Debug\net8.0\Projet-Stage.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\MailKit.dll
+C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\MimeKit.dll
+C:\Users\21650\source\repos\Projet_Data\Projet-Stage\bin\Debug\net8.0\System.Formats.Asn1.dll
