@@ -15,6 +15,8 @@ public partial class DataContext : DbContext
     {
     }
 
+    public virtual DbSet<Alert> Alerts { get; set; }
+
     public virtual DbSet<Contract> Contracts { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
@@ -27,6 +29,15 @@ public partial class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Alert>(entity =>
+        {
+            entity.HasKey(e => e.AlertId).HasName("PK__Alert__EBB16A8D571A8BDD");
+
+            entity.HasOne(d => d.Contract).WithMany(p => p.Alerts)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Alert__ContractI__6FE99F9F");
+        });
+
         modelBuilder.Entity<Contract>(entity =>
         {
             entity.HasKey(e => e.Idcontrat).HasName("PK__Contract__AAF11F01007753E0");

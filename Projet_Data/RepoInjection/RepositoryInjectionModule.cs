@@ -19,6 +19,7 @@ namespace Projet_Data.RepoInjection
             services.AddTransient<IContractRepository, ContractRepository>();
             services.AddTransient<IEmployeeRepository, EmployeRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IAlertRepository, AlertRepository>();
         }
     }
 }

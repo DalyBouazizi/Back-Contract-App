@@ -12,6 +12,7 @@ namespace Projet_Stage.ServiceInjection
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IContractService, ContractService>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IAlertService, AlertService>();
             return services;
         }
 

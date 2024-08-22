@@ -75,8 +75,20 @@ namespace Projet_Data.Repo.Classes
         {
             Contract Contract;
             Contract = await _context.Contracts.Where(c => c.Idcontrat.Equals(IdContract)).FirstOrDefaultAsync();
-                
-            return Contract;
+            if (Contract == null)
+            {
+                Console.WriteLine("Contract not found.");
+                return null;
+            }
+            else
+
+            {
+                Console.WriteLine("Contract not found.");
+                Console.WriteLine(Contract);
+                return Contract;
+            }
+
+           
         }
 
         public async Task<List<Contract>> GetContractByTypeAsync(string Type)

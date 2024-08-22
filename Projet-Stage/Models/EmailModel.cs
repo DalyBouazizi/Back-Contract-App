@@ -6,9 +6,9 @@ namespace Projet_Stage.Models
     {
 
 
-        public string to { get; set; }
+        public IEnumerable<string> to { get; set; }  // Changed to IEnumerable<string>
 
-      
+
         public string subject { get; set; }
 
       

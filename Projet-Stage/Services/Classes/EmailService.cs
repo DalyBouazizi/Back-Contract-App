@@ -18,11 +18,16 @@ namespace Projet_Stage.Services.Classes
             _employeeRepository = employeeRepository;
         }
 
-        public async Task<bool> SendEmailAsync(string toEmail, string subject, string body)
+        public async Task<bool> SendEmailAsync(IEnumerable<string> toEmail, string subject, string body)
         {
             var email = new MimeMessage();
             email.From.Add(new MailboxAddress("Sebn TN2", "sebn@sebn.tn"));
-            email.To.Add(MailboxAddress.Parse(toEmail));
+
+            foreach (var to in toEmail)
+            {
+                email.To.Add(MailboxAddress.Parse(to));
+            }
+
             email.Subject = subject;
             email.Body = new TextPart(TextFormat.Html) { Text = body };
 

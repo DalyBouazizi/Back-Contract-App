@@ -29,6 +29,9 @@ public partial class Contract
     [Column(TypeName = "decimal(18, 2)")]
     public decimal? Salairen { get; set; }
 
+    [InverseProperty("Contract")]
+    public virtual ICollection<Alert> Alerts { get; set; } = new List<Alert>();
+
     [ForeignKey("EmployeeId")]
     [InverseProperty("Contracts")]
     public virtual Employee? Employee { get; set; }
