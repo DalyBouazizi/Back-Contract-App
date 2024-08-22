@@ -174,7 +174,7 @@ namespace Projet_Stage.Controllers
             List<ContractGetModel> contracts = new List<ContractGetModel>();
             try
             {
-                contracts = await _contractService.GetAllContractsAsync();
+                contracts = await _contractService.GetContractsEndingInOneMonthAsync();
                 return Ok(contracts);
             }
             catch (Exception ex)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MimeKit.Text;
+using Projet_Stage.Models;
 using Projet_Stage.Services.Classes;
 using Projet_Stage.Services.Interfaces;
 
@@ -23,15 +24,14 @@ namespace Projet_Stage.Controllers
 
 
         [HttpPost("SendEmail")]
-        public async Task<IActionResult> SendEmail(String to,String Subject,String body)
+        public async Task<IActionResult> SendEmail([FromBody] EmailModel emailModel)
         {
             bool res = false;
             try
             {
-                res = await this.emailService.SendEmailAsync(to, Subject, body);
+                res = await this.emailService.SendEmailAsync(emailModel.to, emailModel.subject, emailModel.body);
                 if (res == false)
-                {
-                    
+                {  
                     return BadRequest("Error sending email");
                 }
                 else
