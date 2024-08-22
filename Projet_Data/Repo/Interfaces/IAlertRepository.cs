@@ -14,5 +14,7 @@ namespace Projet_Data.Repo.Interfaces
         Task<Alert> GetAlertByIdAsync(int alertId);
         Task<IEnumerable<Alert>> GetAlertsByContractIdAsync(int contractId);
         Task<IEnumerable<Alert>> GetAllAlertsAsync();
+
+        Task<bool> DeleteAlertsByContractId(int contractId);
     }
 }

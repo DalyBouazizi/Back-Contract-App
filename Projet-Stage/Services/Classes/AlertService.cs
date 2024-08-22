@@ -73,5 +73,17 @@ namespace Projet_Stage.Services.Classes
                 ContractId = a.ContractId
             });
         }
+
+        public async Task<bool> DeleteAlertsByContractId(int contractId)
+        {
+            try
+            {
+                return await _alertRepository.DeleteAlertsByContractId(contractId);
+
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

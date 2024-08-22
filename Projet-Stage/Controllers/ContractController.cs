@@ -162,6 +162,22 @@ namespace Projet_Stage.Controllers
             }
         }
 
+        [HttpGet("GetContractById")]
+        public async Task<ActionResult<IEnumerable<ContractGetModel>>> GetContractById(int idContract)
+        {
+            var Contracts = await _contractService.GetContractByIdAsync(idContract);
+            if (Contracts == null )
+            {
+                return NotFound("No Contracts found with the specified id.");
+            }
+            else
+            {
+                return Ok(Contracts);
+
+
+            }
+        }
+
 
         // --------------------------------------- 
 

@@ -69,5 +69,27 @@ namespace Projet_Data.Repo.Classes
                                  .OrderByDescending(a => a.AlertDate)
                                  .ToListAsync();
         }
+
+        public async Task<bool> DeleteAlertsByContractId(int contractId)
+        {
+            try
+            {
+                var alerts = await _context.Alerts
+                                              .Where(a => a.ContractId == contractId)
+                                              .ToListAsync();
+
+                if (alerts.Any())
+                {
+                    _context.Alerts.RemoveRange(alerts);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting alerts for contract ID {contractId}: {ex.Message}");
+            }
+        }
     }
 }

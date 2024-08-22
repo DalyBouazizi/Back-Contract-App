@@ -323,6 +323,36 @@ namespace Projet_Stage.Services.Classes
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<ContractGetModel> GetContractByIdAsync(int IdContract)
+        {
+            try
+            {
+                var res = await _contractRepository.GetContractByIdAsync(IdContract);
+                if (res == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    ContractGetModel Contract = new ContractGetModel();
+                    Contract.id = res.Idcontrat;
+                    Contract.Type = res.Type;
+                    Contract.DateFin = res.DateFin;
+                    Contract.Datedeb = res.Datedeb;
+                    Contract.EmployeeId = res.EmployeeId;
+                    Contract.Salaireb = res.Salaireb;
+                    Contract.Salairen = res.Salairen;
+
+                    return Contract;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 }
     

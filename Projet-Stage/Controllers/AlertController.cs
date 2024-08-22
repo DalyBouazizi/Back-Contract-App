@@ -68,5 +68,20 @@ namespace Projet_Stage.Controllers
             var alerts = await _alertService.GetAllAlertsAsync();
             return Ok(alerts);
         }
+
+        [HttpDelete("DeleteAlertsByContractId")]
+        public async Task<IActionResult> DeleteAlertsByContractId(int contractId)
+        {
+            var result = await _alertService.DeleteAlertsByContractId(contractId);
+
+            if (result)
+            {
+                return Ok( "Alerts for contract ID"+ contractId+" deleted successfully." );
+            }
+            else
+            {
+                return NotFound("No alerts found for contract ID "+contractId);
+            }
+        }
     }
 }

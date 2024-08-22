@@ -19,5 +19,7 @@ namespace Projet_Stage.Services.Interfaces
         Task<ContractGetModel> GetLatestContractByEmployeeIdAsync(int employeeId);
 
         Task<List<ContractGetModel>> GetContractsEndingInOneMonthAsync();
+
+        Task<ContractGetModel> GetContractByIdAsync(int IdContract);
     }
 }

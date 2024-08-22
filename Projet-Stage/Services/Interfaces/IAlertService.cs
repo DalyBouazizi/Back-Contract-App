@@ -10,5 +10,6 @@ namespace Projet_Stage.Services.Interfaces
         Task<AlertGetModel> GetAlertByIdAsync(int alertId);
         Task<IEnumerable<AlertGetModel>> GetAlertsByContractIdAsync(int contractId);
         Task<IEnumerable<AlertGetModel>> GetAllAlertsAsync();
+        Task<bool> DeleteAlertsByContractId(int contractId);
     }
 }
