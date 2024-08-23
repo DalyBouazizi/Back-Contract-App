@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Projet_Data.Features;
 using Projet_Stage.Models;
 using Projet_Stage.Services.Classes;
 using Projet_Stage.Services.Interfaces;
@@ -191,6 +192,25 @@ namespace Projet_Stage.Controllers
             {
                 return BadRequest($"No contracts found for employee ID {employeeId}.");
             }
+        }
+
+
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetContractsByFilters([FromQuery] ContractFilterCriteria criteria)
+        {
+            if (criteria == null)
+            {
+                return BadRequest("Invalid filter criteria.");
+            }
+
+            var contracts = await _contractService.GetContractsByFiltersAsync(criteria);
+
+            if (contracts == null || !contracts.Any())
+            {
+                return NotFound("No contracts found matching the criteria.");
+            }
+
+            return Ok(contracts);
         }
 
         // --------------------------------------- 

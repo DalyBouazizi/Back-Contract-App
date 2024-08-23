@@ -1,4 +1,5 @@
 ﻿using Projet_Data.Abstract;
+using Projet_Data.Features;
 using Projet_Data.ModelsEF;
 
 using System;
@@ -26,6 +27,8 @@ namespace Projet_Data.Repo.Interfaces
         Task<ICollection<Contract>> GetLatestContractsAsync();
 
         Task<List<Contract>> GetContractsEndingInOneMonthAsync();
+
+        Task<List<Contract>> GetContractsByFilterAsync(ContractFilterCriteria criteria);
 
 
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
+using Projet_Data.Features;
 
 namespace Projet_Data.Repo.Classes
 {
@@ -174,5 +175,65 @@ namespace Projet_Data.Repo.Classes
                 .Where(c => c.DateFin >= nowDate && c.DateFin <= endDate)
                 .ToListAsync();
         }
+
+        public async Task<List<Contract>> GetContractsByFilterAsync(ContractFilterCriteria criteria)
+        {
+            var query = _context.Contracts.AsQueryable();
+
+            try
+            {
+                // Apply type filter
+                if (criteria.Types != null && criteria.Types.Any())
+                {
+                    var typesList = criteria.Types.SelectMany(t => t.Split(',')).Select(t => t.Trim()).ToList();
+                    query = query.Where(c => typesList.Contains(c.Type));
+                }
+
+                // Apply active filter
+                if (criteria.IsActive.HasValue && criteria.IsActive.Value)
+                {
+                    query = query.Where(c => c.DateFin > DateTime.Now);
+                }
+
+                // Apply ending soon filter
+                if (criteria.IsEndingSoon.HasValue && criteria.IsEndingSoon.Value)
+                {
+                    var oneMonthFromNow = DateTime.Now.AddMonths(1);
+                    query = query.Where(c => c.DateFin <= oneMonthFromNow && c.DateFin > DateTime.Now);
+                }
+
+                // Apply recently ended filter
+                if (criteria.IsEndedRecently.HasValue && criteria.IsEndedRecently.Value)
+                {
+                    var oneMonthAgo = DateTime.Now.AddMonths(-1);
+                    query = query.Where(c => c.DateFin <= DateTime.Now && c.DateFin >= oneMonthAgo);
+                }
+
+                // Apply ended over one month ago filter
+                if (criteria.EndedOverOneMonth.HasValue && criteria.EndedOverOneMonth.Value)
+                {
+                    var moreThanOneMonthAgo = DateTime.Now.AddMonths(-1);
+                    query = query.Where(c => c.DateFin < moreThanOneMonthAgo);
+                }
+
+                // Apply date range filters
+                if (criteria.StartDate.HasValue)
+                {
+                    query = query.Where(c => c.Datedeb >= criteria.StartDate.Value);
+                }
+
+                if (criteria.EndDate.HasValue)
+                {
+                    query = query.Where(c => c.DateFin <= criteria.EndDate.Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error filtering contracts: " + ex.Message);
+            }
+
+            return await query.ToListAsync();
+        }
     }
-}
+    }
+

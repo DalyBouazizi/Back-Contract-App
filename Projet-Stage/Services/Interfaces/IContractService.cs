@@ -1,4 +1,5 @@
-﻿using Projet_Data.ModelsEF;
+﻿using Projet_Data.Features;
+using Projet_Data.ModelsEF;
 
 using Projet_Stage.Models;
 
@@ -22,7 +23,7 @@ namespace Projet_Stage.Services.Interfaces
 
         Task<ContractGetModel> GetContractByIdAsync(int IdContract);
 
-
+        Task<List<ContractGetModel>> GetContractsByFiltersAsync(ContractFilterCriteria criteria);
         Task<bool> DeleteAllContractsByEmployeeIdAsync(int employeeId);
     }
 }

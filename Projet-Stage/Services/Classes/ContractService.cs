@@ -1,4 +1,5 @@
-﻿using Projet_Data.ModelsEF;
+﻿using Projet_Data.Features;
+using Projet_Data.ModelsEF;
 
 using Projet_Data.Repo.Classes;
 using Projet_Data.Repo.Interfaces;
@@ -381,6 +382,55 @@ namespace Projet_Stage.Services.Classes
             {
                 throw new Exception($"Error deleting contracts for employee ID {employeeId}: {ex.Message}");
             }
+        }
+
+        public async Task<List<ContractGetModel>> GetContractsByFiltersAsync(ContractFilterCriteria criteria)
+        {
+
+            try
+            {
+
+                List<ContractGetModel> Contracts = new List<ContractGetModel>();
+                try
+                {
+                    var res = await _contractRepository.GetContractsByFilterAsync(criteria);
+                    if (res == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        foreach (var item in res)
+                        {
+                            ContractGetModel Contract = new ContractGetModel();
+                            Contract.id = item.Idcontrat;
+                            Contract.Type = item.Type;
+                            Contract.DateFin = item.DateFin;
+                            Contract.Datedeb = item.Datedeb;
+                            Contract.EmployeeId = item.EmployeeId;
+                            Contract.Salaireb = item.Salaireb;
+                            Contract.Salairen = item.Salairen;
+
+                            Contracts.Add(Contract);
+                        }
+                        return await Task.FromResult(Contracts);
+                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+
+
+
+           
         }
     }
 }
