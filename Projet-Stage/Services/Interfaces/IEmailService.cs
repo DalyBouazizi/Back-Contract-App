@@ -4,5 +4,7 @@
     {
 
         Task<bool> SendEmailAsync(IEnumerable<string> to, string subject, string body);
+        Task SendContractsEmailAndAddAlertAsync();
+
     }
 }
