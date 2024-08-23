@@ -179,6 +179,20 @@ namespace Projet_Stage.Controllers
         }
 
 
+        [HttpDelete("DeleteAllContractsByEmployeeId")]
+        public async Task<IActionResult> DeleteAllContractsByEmployeeId(int employeeId)
+        {
+            bool res = await _contractService.DeleteAllContractsByEmployeeIdAsync(employeeId);
+            if (res)
+            {
+                return Ok($"All contracts for employee ID {employeeId} have been deleted.");
+            }
+            else
+            {
+                return BadRequest($"No contracts found for employee ID {employeeId}.");
+            }
+        }
+
         // --------------------------------------- 
 
 

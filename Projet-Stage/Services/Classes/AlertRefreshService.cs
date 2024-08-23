@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Projet_Stage.Models;
+﻿using Projet_Stage.Models;
 using Projet_Stage.Services.Interfaces;
 
 public class AlertRefresherService : IHostedService, IDisposable
@@ -48,18 +40,23 @@ public class AlertRefresherService : IHostedService, IDisposable
         try
         {
             var contractsEndingThisMonth = await contractService.GetContractsEndingInOneMonthAsync();
-            var alertTasks = contractsEndingThisMonth.Select(contract =>
-            {
-                var alert = new AlertModel
-                {
-                    ContractId = contract.id,
-                    AlertDate = DateTime.Now
-                    // Add other necessary fields
-                };
-                return alertService.CreateAlertAsync(alert);
-            });
 
-            await Task.WhenAll(alertTasks);
+            foreach (var contract in contractsEndingThisMonth)
+            {
+                using (var scope = _scopeFactory.CreateScope())
+                {
+                    var scopedAlertService = scope.ServiceProvider.GetRequiredService<IAlertService>();
+
+                    var alert = new AlertModel
+                    {
+                        ContractId = contract.id,
+                        AlertDate = DateTime.Now
+                        // Add other necessary fields
+                    };
+                    await scopedAlertService.CreateAlertAsync(alert);
+                }
+            }
+
             _logger.LogInformation("Alerts have been refreshed.");
         }
         catch (Exception ex)

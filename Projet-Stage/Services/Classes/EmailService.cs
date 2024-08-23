@@ -141,7 +141,7 @@ namespace Projet_Stage.Services.Classes
                     </tbody>
                 </table>
                 <div style='text-align: center;'>
-                    <a href='http://localhost:4200/SendEmail' 
+                    <a href='http://localhost:4200/AlertManagement' 
                        style='display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;'>
                       View More Details
                     </a>

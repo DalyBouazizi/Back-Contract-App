@@ -21,5 +21,8 @@ namespace Projet_Stage.Services.Interfaces
         Task<List<ContractGetModel>> GetContractsEndingInOneMonthAsync();
 
         Task<ContractGetModel> GetContractByIdAsync(int IdContract);
+
+
+        Task<bool> DeleteAllContractsByEmployeeIdAsync(int employeeId);
     }
 }

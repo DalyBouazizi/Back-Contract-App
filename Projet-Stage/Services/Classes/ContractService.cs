@@ -353,6 +353,35 @@ namespace Projet_Stage.Services.Classes
             }
 
         }
+
+        public async Task<bool> DeleteAllContractsByEmployeeIdAsync(int employeeId)
+        {
+            try
+            {
+                var employee = await _employeeRepository.GetEmployeeByRealIdAsync(employeeId);
+                if (employee == null)
+                {
+                    return false; // Employee not found
+                }
+
+                var contracts = await _contractRepository.GetContractByEmployeeIdAsync(employeeId);
+                if (contracts == null || !contracts.Any())
+                {
+                    return false; // No contracts found for the employee
+                }
+
+                foreach (var contract in contracts)
+                {
+                    await _contractRepository.DeleteContractAsync(contract.Idcontrat);
+                }
+
+                return true; // Contracts deleted successfully
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting contracts for employee ID {employeeId}: {ex.Message}");
+            }
+        }
     }
 }
     
