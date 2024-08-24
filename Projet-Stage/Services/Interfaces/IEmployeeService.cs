@@ -23,5 +23,8 @@ namespace Projet_Stage.Services.Interfaces
         Task<List<Employee>> SortEmployeesByLastNameAsync(bool ascending);
         Task<List<Employee>> SortEmployeesBySalaryAsync(decimal value, bool over);
         Task<List<Employee>> GetEmployeesByFiltersAsync(FilterCriteria criteria);
+
+
+       
     }
 }

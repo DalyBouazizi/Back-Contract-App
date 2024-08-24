@@ -344,5 +344,7 @@ namespace Projet_Stage.Services.Classes
                 throw new Exception(ex.Message);
             }
         }
+
+
     }
 }

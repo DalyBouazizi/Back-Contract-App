@@ -1,6 +1,7 @@
 ﻿using Projet_Data.Abstract;
 using Projet_Data.Features;
 using Projet_Data.ModelsEF;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace Projet_Data.Repo.Interfaces
 
         Task<List<Employee>> GetEmployeesByFilterAsync(FilterCriteria criteria);
 
-
+   
 
     }
 }

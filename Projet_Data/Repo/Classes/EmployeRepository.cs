@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Projet_Data.Features;
 
+
 namespace Projet_Data.Repo.Classes
 {
     public class EmployeRepository : IEmployeeRepository
@@ -256,5 +257,8 @@ namespace Projet_Data.Repo.Classes
                 throw new Exception(ex.Message);
             }
         }
+
+
+       
     }
 }
