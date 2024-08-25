@@ -29,7 +29,7 @@ public class EmailSenderService : BackgroundService
                 await emailService.SendContractsEmailAndAddAlertAsync();
             }
 
-            await Task.Delay(1000000, stoppingToken);
+            await Task.Delay(30000000, stoppingToken);
         }
     }
 }
