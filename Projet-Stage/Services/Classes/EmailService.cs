@@ -36,7 +36,7 @@ namespace Projet_Stage.Services.Classes
         public async Task<bool> SendEmailAsync(IEnumerable<string> toEmail, string subject, string body)
         {
             var email = new MimeMessage();
-            email.From.Add(new MailboxAddress("Sebn TN2", "sebn@sebn.tn"));
+            email.From.Add(new MailboxAddress("Sebn TN2", "sebn@sebn.com"));
 
             foreach (var to in toEmail)
             {
@@ -93,7 +93,7 @@ namespace Projet_Stage.Services.Classes
                     {
                         var nom = user.Nom.ToLower().Trim().Replace(" ", "");
                         var prenom = user.Prenom.ToLower().Trim().Replace(" ", "");
-                        return $"{nom}.{prenom}@sebn.tn";
+                        return $"{nom}.{prenom}@sebn.com";
                     }).ToList();
                     await SendEmailAsync(recipients, "Contracts Ending This Month", emailBody);
                   
