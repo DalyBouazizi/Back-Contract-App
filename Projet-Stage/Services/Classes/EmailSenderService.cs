@@ -21,15 +21,40 @@ public class EmailSenderService : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("EmailSenderService running at: {time}", DateTimeOffset.Now);
+            var now = DateTimeOffset.Now;
+            var nextRunTime = GetNextMondayAtSpecificTime(now);
+            var delay = nextRunTime - now;
+
+            _logger.LogInformation("EmailSenderService scheduled to run at: {nextRunTime}", nextRunTime);
+
+            if (delay > TimeSpan.Zero)
+            {
+                await Task.Delay(delay, stoppingToken);  // Wait until the next Monday at 8:26 AM
+            }
 
             using (var scope = _serviceProvider.CreateScope())
             {
                 var emailService = scope.ServiceProvider.GetRequiredService<IEmailService>();
                 await emailService.SendContractsEmailAndAddAlertAsync();
             }
-
-            await Task.Delay(30000000, stoppingToken);
+            //await Task.Delay(20000, stoppingToken);
         }
+    }
+
+    private DateTimeOffset GetNextMondayAtSpecificTime(DateTimeOffset currentTime)
+    {
+        // Calculate the days until the next Monday
+        int daysUntilMonday = ((int)DayOfWeek.Monday - (int)currentTime.DayOfWeek + 7) % 7;
+
+        if (daysUntilMonday == 0 && currentTime.TimeOfDay >= new TimeSpan(9, 20, 0))
+        {
+            // If it's Monday and past 8:26 AM, schedule for next Monday
+            daysUntilMonday = 7;
+        }
+
+        var nextMonday = currentTime.Date.AddDays(daysUntilMonday);
+        var nextMondayAt826AM = new DateTimeOffset(nextMonday.AddHours(9).AddMinutes(20), currentTime.Offset);
+
+        return nextMondayAt826AM;
     }
 }
