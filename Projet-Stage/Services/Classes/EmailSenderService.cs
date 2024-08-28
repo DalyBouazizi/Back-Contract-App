@@ -29,7 +29,7 @@ public class EmailSenderService : BackgroundService
 
             if (delay > TimeSpan.Zero)
             {
-                await Task.Delay(delay, stoppingToken);  // Wait until the next Monday at 8:26 AM
+                await Task.Delay(delay, stoppingToken);  // Wait until the next Monday at 
             }
 
             using (var scope = _serviceProvider.CreateScope())
@@ -44,16 +44,16 @@ public class EmailSenderService : BackgroundService
     private DateTimeOffset GetNextMondayAtSpecificTime(DateTimeOffset currentTime)
     {
         // Calculate the days until the next Monday
-        int daysUntilMonday = ((int)DayOfWeek.Monday - (int)currentTime.DayOfWeek + 7) % 7;
+        int daysUntilMonday = ((int)DayOfWeek.Wednesday - (int)currentTime.DayOfWeek + 7) % 7;
 
-        if (daysUntilMonday == 0 && currentTime.TimeOfDay >= new TimeSpan(9, 20, 0))
+        if (daysUntilMonday == 0 && currentTime.TimeOfDay >= new TimeSpan(09, 21, 0))
         {
             // If it's Monday and past 8:26 AM, schedule for next Monday
             daysUntilMonday = 7;
         }
 
         var nextMonday = currentTime.Date.AddDays(daysUntilMonday);
-        var nextMondayAt826AM = new DateTimeOffset(nextMonday.AddHours(9).AddMinutes(20), currentTime.Offset);
+        var nextMondayAt826AM = new DateTimeOffset(nextMonday.AddHours(09).AddMinutes(21), currentTime.Offset);
 
         return nextMondayAt826AM;
     }

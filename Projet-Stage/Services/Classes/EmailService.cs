@@ -93,7 +93,7 @@ namespace Projet_Stage.Services.Classes
                     {
                         var nom = user.Nom.ToLower().Trim().Replace(" ", "");
                         var prenom = user.Prenom.ToLower().Trim().Replace(" ", "");
-                        return $"{nom}.{prenom}@sebn.com";
+                        return $"{prenom}.{nom}@sebn.com";
                     }).ToList();
                     await SendEmailAsync(recipients, "Contracts Ending This Month", emailBody);
                   

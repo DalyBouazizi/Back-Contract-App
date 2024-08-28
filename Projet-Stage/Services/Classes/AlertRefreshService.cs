@@ -42,15 +42,15 @@ public class AlertRefresherService : IHostedService, IDisposable
 
     private DateTimeOffset GetNextMondayAtSpecificTime(DateTimeOffset currentTime)
     {
-        int daysUntilMonday = ((int)DayOfWeek.Monday - (int)currentTime.DayOfWeek + 7) % 7;
+        int daysUntilMonday = ((int)DayOfWeek.Tuesday - (int)currentTime.DayOfWeek + 7) % 7;
 
-        if (daysUntilMonday == 0 && currentTime.TimeOfDay >= new TimeSpan(9, 20, 0))
+        if (daysUntilMonday == 0 && currentTime.TimeOfDay >= new TimeSpan(15, 35, 0))
         {
             daysUntilMonday = 7;
         }
 
         var nextMonday = currentTime.Date.AddDays(daysUntilMonday);
-        var nextMondayAt826AM = new DateTimeOffset(nextMonday.AddHours(9).AddMinutes(20), currentTime.Offset);
+        var nextMondayAt826AM = new DateTimeOffset(nextMonday.AddHours(15).AddMinutes(35), currentTime.Offset);
 
         return nextMondayAt826AM;
     }
