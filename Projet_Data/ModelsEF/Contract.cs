@@ -29,6 +29,8 @@ public partial class Contract
     [Column(TypeName = "decimal(18, 2)")]
     public decimal? Salairen { get; set; }
 
+    public bool? Signature { get; set; }
+
     [InverseProperty("Contract")]
     public virtual ICollection<Alert> Alerts { get; set; } = new List<Alert>();
 

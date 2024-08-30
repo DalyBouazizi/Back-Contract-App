@@ -25,5 +25,7 @@ namespace Projet_Stage.Services.Interfaces
 
         Task<List<ContractGetModel>> GetContractsByFiltersAsync(ContractFilterCriteria criteria);
         Task<bool> DeleteAllContractsByEmployeeIdAsync(int employeeId);
+
+        //Task<bool> SignContractAsync(int contractId);
     }
 }

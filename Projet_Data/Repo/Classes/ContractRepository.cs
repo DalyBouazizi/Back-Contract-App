@@ -234,6 +234,26 @@ namespace Projet_Data.Repo.Classes
 
             return await query.ToListAsync();
         }
+
+        //public async Task<bool> SignContractAsync(Contract contract)
+        //{
+        //    try
+        //    {
+        //        var res = await UpdateContractAsync(contract);
+        //        if (res == null)
+        //        {
+        //            return false;
+        //        }
+        //        else
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
     }
     }
 

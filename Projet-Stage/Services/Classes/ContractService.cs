@@ -34,9 +34,10 @@ namespace Projet_Stage.Services.Classes
                 NewContract.EmployeeId = employee.Id;
                 NewContract.Datedeb = Contract.Datedeb;
                 NewContract.DateFin = Contract.DateFin;
-                NewContract.Salaireb = Contract.Salaireb;   
+                NewContract.Salaireb = Contract.Salaireb;
                 NewContract.Salairen = Contract.Salairen;
                 NewContract.Type = Contract.Type;
+                NewContract.Signature = Contract.Signature;
 
 
                 var res = await _contractRepository.AddContractAsync(NewContract);
@@ -82,8 +83,9 @@ namespace Projet_Stage.Services.Classes
                         Contract.DateFin = item.DateFin;
                         Contract.Datedeb = item.Datedeb;
                         Contract.EmployeeId = item.EmployeeId;
-                        Contract.Salaireb = item.Salaireb;  
+                        Contract.Salaireb = item.Salaireb;
                         Contract.Salairen = item.Salairen;
+                        Contract.Signature = item.Signature;
 
                         Contracts.Add(Contract);
                     }
@@ -121,7 +123,8 @@ namespace Projet_Stage.Services.Classes
                         existingContract.EmployeeId = contract.EmployeeId;
                         existingContract.Salairen = contract.Salairen;
                         existingContract.Salaireb = contract.Salaireb;
-                        
+                        existingContract.Signature = contract.Signature;
+
                         return await _contractRepository.UpdateContractAsync(existingContract);
                     }
                     else
@@ -150,7 +153,8 @@ namespace Projet_Stage.Services.Classes
                     DateFin = c.DateFin,
                     EmployeeId = c.EmployeeId,
                     Salairen = c.Salairen,
-                    Salaireb = c.Salaireb
+                    Salaireb = c.Salaireb,
+                    Signature = c.Signature
                 }).ToList();
             }
             catch (Exception ex)
@@ -162,23 +166,24 @@ namespace Projet_Stage.Services.Classes
         public async Task<List<ContractModel>> GetContractByEmployeeIdAsync(int EmployeeId)
         {
             var test = await _employeeRepository.GetEmployeeByRealIdAsync(EmployeeId);
-            if(test == null)
+            if (test == null)
             {
                 return null;
             }
             else
             {
-                var Contracts =  await _contractRepository.GetContractByEmployeeIdAsync(EmployeeId);
+                var Contracts = await _contractRepository.GetContractByEmployeeIdAsync(EmployeeId);
                 List<ContractModel> DisplayContracts = new List<ContractModel>();
-                foreach(var contract in Contracts) {
+                foreach (var contract in Contracts)
+                {
                     ContractModel DisplayContract = new ContractModel();
                     DisplayContract.EmployeeId = contract.EmployeeId;
                     DisplayContract.Datedeb = contract.Datedeb;
                     DisplayContract.DateFin = contract.DateFin;
                     DisplayContract.Type = contract.Type;
                     DisplayContract.Salaireb = contract.Salaireb;
-                    DisplayContract.Salairen = contract.Salairen;   
-
+                    DisplayContract.Salairen = contract.Salairen;
+                    DisplayContract.Signature = contract.Signature;
                     DisplayContracts.Add(DisplayContract);
 
                 }
@@ -210,6 +215,7 @@ namespace Projet_Stage.Services.Classes
             FinalContract.Type = newContract.Type;
             FinalContract.Salaireb = newContract.Salaireb;
             FinalContract.Salairen = newContract.Salairen;
+            FinalContract.Signature = newContract.Signature;
 
 
             // Add the new contract without altering its start date
@@ -238,6 +244,7 @@ namespace Projet_Stage.Services.Classes
                         Contract.EmployeeId = item.EmployeeId;
                         Contract.Salaireb = item.Salaireb;
                         Contract.Salairen = item.Salairen;
+                        Contract.Signature = item.Signature;
 
 
                         Contracts.Add(Contract);
@@ -257,30 +264,32 @@ namespace Projet_Stage.Services.Classes
             {
                 var res = await _contractRepository.GetLatestContractByEmployeeIdAsync(employeeId);
                 if (res == null)
-{
+                {
                     return null;
                 }
-                else { 
-                ContractGetModel Contract = new ContractGetModel();
-                Contract.id = res.Idcontrat;
-                Contract.Type = res.Type;
-                Contract.DateFin = res.DateFin;
-                Contract.Datedeb = res.Datedeb;
-                Contract.EmployeeId = res.EmployeeId;
-                Contract.Salaireb = res.Salaireb;
-                Contract.Salairen = res.Salairen;
+                else
+                {
+                    ContractGetModel Contract = new ContractGetModel();
+                    Contract.id = res.Idcontrat;
+                    Contract.Type = res.Type;
+                    Contract.DateFin = res.DateFin;
+                    Contract.Datedeb = res.Datedeb;
+                    Contract.EmployeeId = res.EmployeeId;
+                    Contract.Salaireb = res.Salaireb;
+                    Contract.Salairen = res.Salairen;
+                    Contract.Signature = res.Signature;
 
-                return Contract;
+                    return Contract;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-          
-            
-            
-            
+
+
+
+
         }
 
         public async Task<List<ContractGetModel>> GetContractsEndingInOneMonthAsync()
@@ -308,6 +317,7 @@ namespace Projet_Stage.Services.Classes
                             Contract.EmployeeId = item.EmployeeId;
                             Contract.Salaireb = item.Salaireb;
                             Contract.Salairen = item.Salairen;
+                            Contract.Signature = item.Signature;
 
                             Contracts.Add(Contract);
                         }
@@ -344,6 +354,7 @@ namespace Projet_Stage.Services.Classes
                     Contract.EmployeeId = res.EmployeeId;
                     Contract.Salaireb = res.Salaireb;
                     Contract.Salairen = res.Salairen;
+                    Contract.Signature = res.Signature;
 
                     return Contract;
                 }
@@ -410,11 +421,12 @@ namespace Projet_Stage.Services.Classes
                             Contract.EmployeeId = item.EmployeeId;
                             Contract.Salaireb = item.Salaireb;
                             Contract.Salairen = item.Salairen;
+                            Contract.Signature = item.Signature;
 
                             Contracts.Add(Contract);
                         }
                         return await Task.FromResult(Contracts);
-                        
+
                     }
                 }
                 catch (Exception ex)
@@ -430,8 +442,32 @@ namespace Projet_Stage.Services.Classes
 
 
 
-           
+
         }
+
+        //    public async Task<bool> SignContractAsync(int contractId)
+        //    {
+        //        try
+        //        {
+        //            var contract = await _contractRepository.GetContractByIdAsync(contractId);
+        //            if (contract == null)
+        //            {
+        //                return false;
+        //            }
+        //            else
+        //            {
+
+        //                contract.Signature = true;
+
+        //                return await _contractRepository.SignContractAsync(contract); ;
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw new Exception(ex.Message);
+        //        }
+        //    }
+        //}
     }
 }
     

@@ -46,14 +46,14 @@ public class EmailSenderService : BackgroundService
         // Calculate the days until the next Monday
         int daysUntilMonday = ((int)DayOfWeek.Wednesday - (int)currentTime.DayOfWeek + 7) % 7;
 
-        if (daysUntilMonday == 0 && currentTime.TimeOfDay >= new TimeSpan(09, 21, 0))
+        if (daysUntilMonday == 0 && currentTime.TimeOfDay >= new TimeSpan(14, 25, 0))
         {
             // If it's Monday and past 8:26 AM, schedule for next Monday
             daysUntilMonday = 7;
         }
 
         var nextMonday = currentTime.Date.AddDays(daysUntilMonday);
-        var nextMondayAt826AM = new DateTimeOffset(nextMonday.AddHours(09).AddMinutes(21), currentTime.Offset);
+        var nextMondayAt826AM = new DateTimeOffset(nextMonday.AddHours(14).AddMinutes(25), currentTime.Offset);
 
         return nextMondayAt826AM;
     }

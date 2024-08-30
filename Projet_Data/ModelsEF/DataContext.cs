@@ -33,9 +33,7 @@ public partial class DataContext : DbContext
         {
             entity.HasKey(e => e.AlertId).HasName("PK__Alert__EBB16A8D571A8BDD");
 
-            entity.HasOne(d => d.Contract).WithMany(p => p.Alerts)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Alert__ContractI__6FE99F9F");
+            entity.HasOne(d => d.Contract).WithMany(p => p.Alerts).HasConstraintName("FK__Alert__ContractI__6FE99F9F");
         });
 
         modelBuilder.Entity<Contract>(entity =>

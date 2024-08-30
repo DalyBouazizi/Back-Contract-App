@@ -30,6 +30,8 @@ namespace Projet_Data.Repo.Interfaces
 
         Task<List<Contract>> GetContractsByFilterAsync(ContractFilterCriteria criteria);
 
+        //Task<bool> SignContractAsync(Contract contract);
+
 
 
 

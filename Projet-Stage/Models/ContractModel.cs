@@ -9,5 +9,6 @@
         public decimal? Salaireb { get; set; }
         public decimal? Salairen { get; set; }
         public int EmployeeId { get; set; }
+        public bool? Signature { get; set; }
     }
 }
